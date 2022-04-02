@@ -26,7 +26,7 @@ import { useApi } from '@hooks';
 const RegistrationForm: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
-  const { API } = useApi({ url: '/create-or-update-user', method: 'Post' });
+  const { API } = useApi({ url: '/create-user', method: 'Post' });
 
   const handleSubmit = async (
     values: { password: string; email: string },
@@ -65,6 +65,7 @@ const RegistrationForm: FC = () => {
       });
     } finally {
       setIsLoading(false);
+      resetForm();
     }
   };
 

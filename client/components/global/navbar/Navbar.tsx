@@ -1,11 +1,15 @@
 import { FC } from 'react';
 
 //comopnents
-import { Box, Flex, Stack } from '@chakra-ui/react';
+import { Box, Flex, Stack, IconButton } from '@chakra-ui/react';
 import LogInAndSignUpButton from './LogInAndSignUpButton';
 import LogoutButton from './LogoutButton';
 import ToggleThemeButton from './ToggleThemeButton';
 import VerifyEmailButton from './VerifyEmailButton';
+import Image from 'next/image';
+
+//icon
+import { MdShoppingBasket } from 'react-icons/md';
 
 //utils
 import { useRouter } from 'next/router';
@@ -26,10 +30,19 @@ const Navbar: FC = () => {
     <>
       <Box px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>Logo</Box>
+          <Box>
+            <Image src={'/store.png'} width="150" height={'150'} />
+          </Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
+              {user && (
+                <IconButton
+                  colorScheme={'brand.tertiary'}
+                  aria-label="Cart"
+                  icon={<MdShoppingBasket />}
+                />
+              )}
               {user && !user.emailVerified && <VerifyEmailButton />}
 
               <ToggleThemeButton />

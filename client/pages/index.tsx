@@ -1,15 +1,20 @@
-//types
-import type { NextPage } from 'next';
+//components
+import { HomeCarousel } from '@components/home';
+import { VStack } from '@chakra-ui/react';
 
 //utils
 import { useAppSelector, selectUser } from '@store';
+
+//types
+import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
   const user = useAppSelector(selectUser);
   return (
     <>
+      <HomeCarousel />
       <div>Shubham The Great</div>
-      <div>{user?.email}</div>
+      <div>{JSON.stringify(user)}</div>
     </>
   );
 };

@@ -2,23 +2,40 @@
 import { useEffect, FC } from 'react';
 import { auth } from '@firebase';
 import { useAppDispatch, LOGIN, LOGOUT } from '@store';
+import { useApi } from '@hooks';
 
 const SetUser: FC = ({ children }) => {
   const dispatch = useAppDispatch();
+  const { API } = useApi({ url: '/user', method: 'get' });
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async user => {
-      if (user) {
-        const idTokenResult = await user.getIdToken();
+      try {
+        if (user) {
+          const token = await user.getIdToken();
 
-        dispatch(
-          LOGIN({
-            email: user.email!,
-            token: idTokenResult,
-            emailVerified: user.emailVerified,
-          })
-        );
-      } else {
+          const headers = { auth_token: token };
+          API({ headers }).then((data: any) => {
+            if (data && data.success) {
+              dispatch(
+                LOGIN({
+                  email: user.email!,
+                  token,
+                  emailVerified: user.emailVerified,
+                  _id: data?.payload._id,
+                  cart: data?.payload.cart,
+                  role: data?.payload.role,
+                })
+              );
+            } else {
+              dispatch(LOGOUT());
+            }
+          });
+        } else {
+          dispatch(LOGOUT());
+        }
+      } catch (error) {
+        console.log('error in setting user', error);
         dispatch(LOGOUT());
       }
     });

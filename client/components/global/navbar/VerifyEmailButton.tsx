@@ -34,7 +34,7 @@ const VerifyEmailButton: FC = () => {
     <Button
       isLoading={isLoading}
       onClick={() => handleClick()}
-      colorScheme={'brand.link'}
+      colorScheme={'brand.tertiary'}
     >
       Verify Your Email
     </Button>

@@ -36,11 +36,13 @@ const useApi = ({
   });
   const controller = new AbortController();
   const API = async ({ body = null, headers = null }: API) => {
-    console.log('User from useApi => ', user);
+    if (user && user.token) {
+      delete headers.auth_token;
+    }
     const axiosHeaders = {
       //@ts-ignore
       ...headers,
-      ...(user && user.token && { AUTH_TOKEN: user.token }),
+      ...(user && user.token && { auth_token: user.token }),
     };
     return new Promise(async (resolve, reject) => {
       try {
