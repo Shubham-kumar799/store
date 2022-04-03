@@ -1,4 +1,5 @@
 const admin = require('../firebase');
+const User = require('../models/user');
 
 const authCheck = async (req, res, next) => {
   try {
@@ -6,6 +7,7 @@ const authCheck = async (req, res, next) => {
       .auth()
       .verifyIdToken(req.headers.auth_token);
     req.user = firebaseUser;
+
     next();
   } catch (error) {
     console.log('Error in authCheck middleware => ', error);
@@ -37,4 +39,4 @@ const adminCheck = async (req, res, next) => {
   }
 };
 
-module.exports = { authCheck , adminCheck };
+module.exports = { authCheck, adminCheck };

@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 
 //components
 import { Navbar } from '@components/global';
+import { AdminSidebar } from '@components/admin';
 
 //utils
 import { Provider as ReduxProvider } from 'react-redux';
@@ -20,7 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ChakraProvider theme={theme}>
           <SetUser>
             <Navbar />
-            <Component {...pageProps} />
+            <AdminSidebar>
+              <Component {...pageProps} />
+            </AdminSidebar>
           </SetUser>
         </ChakraProvider>
       </ApolloProvider>

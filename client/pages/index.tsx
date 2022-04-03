@@ -1,6 +1,5 @@
 //components
 import { HomeCarousel } from '@components/home';
-import { VStack } from '@chakra-ui/react';
 
 //utils
 import { useAppSelector, selectUser } from '@store';
