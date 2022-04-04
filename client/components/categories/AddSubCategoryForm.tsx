@@ -17,47 +17,49 @@ import { AddCategoryFormValuesType } from '@appTypes/categories';
 import { categorySchema } from '@utils/categorySchema';
 import { useApi } from '@hooks';
 import { useApolloClient } from '@apollo/client';
-import { GETCATEGORIES } from '@graphql/categories';
+import { GET_SUB_CATEGORIES_BY_PARENT_ID } from '@graphql/categories';
 import slugify from 'slugify';
 
 interface Props {
   formRef: RefObject<FormikProps<AddCategoryFormValuesType>>;
   setPositiveButtonLoading: Dispatch<boolean>;
+  parentId: string;
 }
 
-const AddCategoryForm: FC<Props> = ({ formRef, setPositiveButtonLoading }) => {
+const AddSubCategoryForm: FC<Props> = ({
+  formRef,
+  setPositiveButtonLoading,
+  parentId,
+}) => {
   const { cache } = useApolloClient();
   const toast = useToast();
-  const [_, API] = useApi({ method: 'Post', url: '/category' });
+  const [_, API] = useApi({ method: 'Post', url: '/subCategory' });
 
   const handleSubmit = async (values: { name: string }, resetForm: any) => {
     try {
       setPositiveButtonLoading(true);
-      const body = { name: values.name };
+      const body = { name: values.name, parent: parentId };
       const data = await API({ body });
       cache.writeQuery({
-        query: GETCATEGORIES,
+        query: GET_SUB_CATEGORIES_BY_PARENT_ID,
         data: {
-          getCategories: {
-            __typename: 'Category',
+          getSubCategoriesByParentId: {
+            __typename: 'SubCategory',
             // @ts-ignore
             _id: data.payload._id,
             name: values.name,
+            parent: parentId,
             slug: slugify(values.name).toLowerCase(),
           },
         },
-      });
-      toast({
-        status: 'success',
-        title: 'Category added',
-        position: 'top',
+        variables: { parentId },
       });
       resetForm();
     } catch (error) {
-      console.log('error adding category', error);
+      console.log('error adding sub category', error);
       toast({
         status: 'error',
-        title: 'Error adding category. Try again',
+        title: 'Error adding sub-category. Try again',
         position: 'top',
       });
     } finally {
@@ -78,8 +80,12 @@ const AddCategoryForm: FC<Props> = ({ formRef, setPositiveButtonLoading }) => {
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align="flex-start">
             <FormControl isInvalid={!!errors.name && touched.name}>
-              <FormLabel>Name</FormLabel>
-              <Field as={Input} id="name" name="name" />
+              <Field
+                placeholder="Enter sub-category name to create new sub-category"
+                as={Input}
+                id="name"
+                name="name"
+              />
               <FormErrorMessage colorScheme={'brand.error'}>
                 {errors.name}
               </FormErrorMessage>
@@ -91,4 +97,4 @@ const AddCategoryForm: FC<Props> = ({ formRef, setPositiveButtonLoading }) => {
   );
 };
 
-export default AddCategoryForm;
+export default AddSubCategoryForm;

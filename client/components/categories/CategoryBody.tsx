@@ -18,8 +18,8 @@ const ColorScheme = [
   'brand.link',
 ];
 
-const Body: FC = () => {
-  const { loading, error, data, refetch } = useQuery(GETCATEGORIES);
+const CategoryBody: FC = () => {
+  const { loading, data } = useQuery(GETCATEGORIES);
 
   if (loading) return <AppSpinner />;
 
@@ -42,4 +42,4 @@ const Body: FC = () => {
   );
 };
 
-export default Body;
+export default CategoryBody;

@@ -18,7 +18,6 @@ import { categorySchema } from '@utils/categorySchema';
 import { useApi } from '@hooks';
 import { useApolloClient } from '@apollo/client';
 import slugify from 'slugify';
-import { GETCATEGORIES } from '@graphql/categories';
 
 interface Props {
   formRef: RefObject<FormikProps<UpdateCategoryFormValuesType>>;
@@ -27,7 +26,6 @@ interface Props {
   categoryName: string;
   closeModal: () => void;
   categoryId: string;
-  initialRef: any;
 }
 
 const UpdateCategoryForm: FC<Props> = ({
@@ -37,7 +35,6 @@ const UpdateCategoryForm: FC<Props> = ({
   categoryName,
   closeModal,
   categoryId,
-  initialRef,
 }) => {
   const { cache } = useApolloClient();
   const toast = useToast();

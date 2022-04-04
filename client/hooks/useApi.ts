@@ -15,13 +15,14 @@ interface useApiState {
 interface API {
   headers?: any | null;
   body?: any | null;
+  backUpUrl?: string;
 }
 
 const useApi = ({
   url,
   method,
 }: {
-  url: string;
+  url?: string;
   method: string;
 }): [
   res: useApiState,
@@ -35,10 +36,14 @@ const useApi = ({
     error: null,
   });
   const controller = new AbortController();
-  const API = async ({ body = null, headers = null }: API) => {
+  const API = async ({ body = null, headers = null, backUpUrl }: API) => {
     if (user && user.token && headers) {
       delete headers.auth_token;
     }
+    if (backUpUrl) {
+      url = backUpUrl;
+    }
+
     const axiosHeaders = {
       //@ts-ignore
       ...headers,

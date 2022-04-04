@@ -25,9 +25,13 @@ interface Props {
   positiveButtonTitle: string;
   positiveButtonFunction: () => void;
   positiveButtonLoading: boolean;
+  size?: string;
+  negativeButton?: boolean;
+  negativeButtonColorScheme?: string;
+  negativeButtonTitle?: string;
 }
 
-const AppAddDrawer: FC<Props> = ({
+const AppDrawer: FC<Props> = ({
   title,
   isOpen,
   onClose,
@@ -37,6 +41,10 @@ const AppAddDrawer: FC<Props> = ({
   positiveButtonTitle,
   positiveButtonFunction,
   positiveButtonLoading,
+  size,
+  negativeButton = true,
+  negativeButtonColorScheme = 'brand.error',
+  negativeButtonTitle = 'Cancel',
 }) => {
   const firstField = useRef(null);
 
@@ -45,6 +53,7 @@ const AppAddDrawer: FC<Props> = ({
       <Drawer
         isOpen={isOpen}
         closeOnOverlayClick={false}
+        size={size ? size : 'xs'}
         // @ts-ignore
         placement={placement ? placement : 'right'}
         initialFocusRef={firstField}
@@ -65,14 +74,16 @@ const AppAddDrawer: FC<Props> = ({
           <DrawerBody>{children}</DrawerBody>
 
           <DrawerFooter borderTopWidth="1px">
-            <Button
-              colorScheme={'brand.error'}
-              variant="ghost"
-              mr={3}
-              onClick={onClose}
-            >
-              Cancel
-            </Button>
+            {negativeButton && (
+              <Button
+                colorScheme={negativeButtonColorScheme}
+                variant="ghost"
+                mr={3}
+                onClick={onClose}
+              >
+                {negativeButtonTitle}
+              </Button>
+            )}
             <Button
               isLoading={positiveButtonLoading}
               colorScheme={'brand.tertiary'}
@@ -87,4 +98,4 @@ const AppAddDrawer: FC<Props> = ({
   );
 };
 
-export default AppAddDrawer;
+export default AppDrawer;

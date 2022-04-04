@@ -33,16 +33,9 @@ const AppModal: FC<Props> = ({
   onOpen,
   onClose,
   children,
-  initialRef,
 }) => {
   return (
-    <Modal
-      initialFocusRef={initialRef}
-      isCentered={true}
-      isOpen={isOpen}
-      onClose={onClose}
-      autoFocus={true}
-    >
+    <Modal isCentered={true} isOpen={isOpen} onClose={onClose} autoFocus={true}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader

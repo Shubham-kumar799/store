@@ -1,7 +1,7 @@
 //components
 import { Flex, Divider, useDisclosure } from '@chakra-ui/react';
-import { Header, AddCategoryForm, Body } from '@components/categories';
-import { AppAddDrawer } from '@components/global';
+import { Header, AddCategoryForm, CategoryBody } from '@components/categories';
+import { AppDrawer } from '@components/global';
 
 //types
 import { NextPage } from 'next';
@@ -18,7 +18,7 @@ const Categories: NextPage = () => {
 
   return (
     <Flex direction={'column'} flex={1} justifyContent="center">
-      <AppAddDrawer
+      <AppDrawer
         positiveButtonLoading={positiveButtonLoading}
         positiveButtonTitle="Add Category"
         positiveButtonFunction={() => formRef.current?.submitForm()}
@@ -31,11 +31,11 @@ const Categories: NextPage = () => {
           formRef={formRef}
           setPositiveButtonLoading={setPositiveButtonLoading}
         />
-      </AppAddDrawer>
+      </AppDrawer>
       <Header onOpen={onOpen} />
       <Divider />
 
-      <Body />
+      <CategoryBody />
     </Flex>
   );
 };

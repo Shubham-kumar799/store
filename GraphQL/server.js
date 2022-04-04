@@ -5,6 +5,7 @@ const resolvers = require('./src/resolvers');
 
 //API's
 const CategoryAPI = require('./src/datasources/category-api');
+const SubCategoryAPI = require('./src/datasources/subCategory-api');
 
 console.log(`${process.env.REST_API_BASEURL}/category`);
 
@@ -14,6 +15,7 @@ const server = new ApolloServer({
   dataSources: () => {
     return {
       categoryAPI: new CategoryAPI(),
+      subCategoryAPI: new SubCategoryAPI(),
     };
   },
 });
