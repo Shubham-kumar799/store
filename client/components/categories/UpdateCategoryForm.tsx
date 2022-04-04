@@ -11,54 +11,65 @@ import { Formik, Field, FormikProps } from 'formik';
 
 //types
 import { Dispatch, FC, RefObject } from 'react';
-import { AddCategoryFormValuesType } from '@appTypes/categories';
+import { UpdateCategoryFormValuesType } from '@appTypes/categories';
 
 //utils
 import { categorySchema } from '@utils/categorySchema';
 import { useApi } from '@hooks';
 import { useApolloClient } from '@apollo/client';
-import { GETCATEGORIES } from '@graphql/categories';
 import slugify from 'slugify';
+import { GETCATEGORIES } from '@graphql/categories';
 
 interface Props {
-  formRef: RefObject<FormikProps<AddCategoryFormValuesType>>;
+  formRef: RefObject<FormikProps<UpdateCategoryFormValuesType>>;
   setPositiveButtonLoading: Dispatch<boolean>;
+  categorySlug: string;
+  categoryName: string;
+  closeModal: () => void;
+  categoryId: string;
+  initialRef: any;
 }
 
-const AddCategoryForm: FC<Props> = ({ formRef, setPositiveButtonLoading }) => {
+const UpdateCategoryForm: FC<Props> = ({
+  formRef,
+  setPositiveButtonLoading,
+  categorySlug,
+  categoryName,
+  closeModal,
+  categoryId,
+  initialRef,
+}) => {
   const { cache } = useApolloClient();
   const toast = useToast();
-  const [_, API] = useApi({ method: 'Post', url: '/category' });
+  const [_, API] = useApi({ method: 'Put', url: `/category/${categorySlug}` });
 
   const handleSubmit = async (values: { name: string }, resetForm: any) => {
     try {
       setPositiveButtonLoading(true);
       const body = { name: values.name };
-      const data = await API({ body });
-      console.log('data => ', data);
-      cache.writeQuery({
-        query: GETCATEGORIES,
-        data: {
-          getCategories: {
-            __typename: 'Category',
-            // @ts-ignore
-            _id: data.payload._id,
-            name: values.name,
-            slug: slugify(values.name).toLowerCase(),
+      await API({ body });
+      cache.modify({
+        id: cache.identify({
+          __typename: 'Category',
+          name: categoryName,
+          slug: categorySlug,
+          _id: categoryId,
+        }),
+        fields: {
+          name() {
+            return values.name;
+          },
+          slug() {
+            return slugify(values.name);
           },
         },
       });
-      toast({
-        status: 'success',
-        title: 'Category added',
-        position: 'top',
-      });
-      resetForm();
+      closeModal();
     } catch (error) {
-      console.log('error adding category', error);
+      console.log('error updating category', error);
       toast({
         status: 'error',
-        title: 'Error adding category. Try again',
+        title: 'Error updating category. Try again',
         position: 'top',
       });
     } finally {
@@ -71,7 +82,7 @@ const AddCategoryForm: FC<Props> = ({ formRef, setPositiveButtonLoading }) => {
       innerRef={formRef}
       validationSchema={categorySchema}
       initialValues={{
-        name: '',
+        name: categoryName,
       }}
       onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
     >
@@ -92,4 +103,4 @@ const AddCategoryForm: FC<Props> = ({ formRef, setPositiveButtonLoading }) => {
   );
 };
 
-export default AddCategoryForm;
+export default UpdateCategoryForm;

@@ -25,7 +25,8 @@
       "@appTypes/*": ["appTypes/*"],
       "@store": ["store"],
       "@store/*": ["store/*"],
-      "@hooks": ["hooks"]
+      "@hooks": ["hooks"],
+      "@graphql/*": ["graphql/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

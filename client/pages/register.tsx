@@ -5,9 +5,10 @@ import {
   HStack,
   VStack,
   Text,
+  Button,
 } from '@chakra-ui/react';
 import { RegistrationForm } from '@components/register';
-import { AppLink, GoogleButton, FacebookButton } from '@components/global';
+import { GoogleButton, FacebookButton } from '@components/global';
 
 //types
 import { NextPage } from 'next';
@@ -34,7 +35,13 @@ const Register: NextPage = () => {
 
           <HStack>
             <Text>Already a customer ? </Text>
-            <AppLink onClick={() => router.push('/login')} text={'Sign In'} />
+            <Button
+              variant="link"
+              colorScheme="brand.link"
+              onClick={() => router.push('/login')}
+            >
+              Sign In
+            </Button>
           </HStack>
           <HStack>
             <FacebookButton title="Continue with Facebook" />

@@ -5,9 +5,10 @@ import {
   VStack,
   Text,
   HStack,
+  Button,
 } from '@chakra-ui/react';
 import { LoginForm } from '@components/login';
-import { AppLink, FacebookButton, GoogleButton } from '@components/global';
+import { FacebookButton, GoogleButton } from '@components/global';
 import { PreventUser } from '@components/wrappers';
 
 //types
@@ -33,15 +34,21 @@ const Login: NextPage = () => {
           <LoginForm />
           <HStack>
             <Text>New User ? </Text>
-            <AppLink
+            <Button
+              colorScheme={'brand.link'}
               onClick={() => router.push('/register')}
-              text={' Sign Up here'}
-            />
+              variant="link"
+            >
+              Sign Up here
+            </Button>
           </HStack>
-          <AppLink
+          <Button
+            colorScheme={'brand.link'}
             onClick={() => router.push('/forgotPassword')}
-            text="Forgot Password"
-          />
+            variant={'link'}
+          >
+            Forgot Password
+          </Button>
           <HStack>
             <FacebookButton title="Continue with Facebook" />
             <GoogleButton title="Sign In with Google" />

@@ -56,7 +56,7 @@ const read = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const { slug } = req.params.slug;
+    const { slug } = req.params;
     const { name } = req.body;
     const category = await Category.findOneAndUpdate(
       { slug },
@@ -77,7 +77,8 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const { slug } = req.params.slug;
+    const { slug } = req.params;
+
     const category = await Category.findOneAndDelete({ slug });
     res.status(200).json({
       success: true,

@@ -6,7 +6,7 @@ import { useApi } from '@hooks';
 
 const SetUser: FC = ({ children }) => {
   const dispatch = useAppDispatch();
-  const { API } = useApi({ url: '/user', method: 'get' });
+  const [_, API] = useApi({ url: '/user', method: 'get' });
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async user => {

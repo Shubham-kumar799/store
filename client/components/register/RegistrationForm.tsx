@@ -26,7 +26,7 @@ import { useApi } from '@hooks';
 const RegistrationForm: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
-  const { API } = useApi({ url: '/create-user', method: 'Post' });
+  const [_, API] = useApi({ url: '/create-user', method: 'Post' });
 
   const handleSubmit = async (
     values: { password: string; email: string },

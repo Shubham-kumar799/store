@@ -1,6 +1,6 @@
 //components
-import { Box, Divider, useDisclosure } from '@chakra-ui/react';
-import { Header, AddCategoryForm } from '@components/categories';
+import { Flex, Divider, useDisclosure } from '@chakra-ui/react';
+import { Header, AddCategoryForm, Body } from '@components/categories';
 import { AppAddDrawer } from '@components/global';
 
 //types
@@ -17,7 +17,7 @@ const Categories: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box>
+    <Flex direction={'column'} flex={1} justifyContent="center">
       <AppAddDrawer
         positiveButtonLoading={positiveButtonLoading}
         positiveButtonTitle="Add Category"
@@ -34,7 +34,9 @@ const Categories: NextPage = () => {
       </AppAddDrawer>
       <Header onOpen={onOpen} />
       <Divider />
-    </Box>
+
+      <Body />
+    </Flex>
   );
 };
 

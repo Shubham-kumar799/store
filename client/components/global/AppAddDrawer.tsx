@@ -7,11 +7,8 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  IconButton,
 } from '@chakra-ui/react';
-
-//icons
-import { CloseIcon } from '@chakra-ui/icons';
+import { AppCloseButton } from '.';
 
 //types
 import { FC } from 'react';
@@ -62,13 +59,7 @@ const AppAddDrawer: FC<Props> = ({
             borderBottomWidth="1px"
           >
             {title}
-            <IconButton
-              aria-label="close"
-              icon={<CloseIcon />}
-              onClick={onClose}
-              variant="ghost"
-              colorScheme={'brand.error'}
-            />
+            <AppCloseButton onClose={onClose} />
           </DrawerHeader>
 
           <DrawerBody>{children}</DrawerBody>

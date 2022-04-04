@@ -23,11 +23,11 @@ const useApi = ({
 }: {
   url: string;
   method: string;
-}): {
-  res: useApiState;
-  API: ({ body, headers }: API) => Promise<unknown>;
-  controller: AbortController;
-} => {
+}): [
+  res: useApiState,
+  API: ({ body, headers }: API) => Promise<unknown>,
+  controller: AbortController
+] => {
   const user = useSelector(selectUser);
   const [res, setRes] = useState<useApiState>({
     data: null,
@@ -77,7 +77,7 @@ const useApi = ({
     });
   };
 
-  return { res, API, controller };
+  return [res, API, controller];
 };
 
 export default useApi;
