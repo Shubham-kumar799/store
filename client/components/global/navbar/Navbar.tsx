@@ -6,7 +6,6 @@ import LogInAndSignUpButton from './LogInAndSignUpButton';
 import LogoutButton from './LogoutButton';
 import ToggleThemeButton from './ToggleThemeButton';
 import VerifyEmailButton from './VerifyEmailButton';
-import Link from 'next/link';
 import Image from 'next/image';
 
 //icon
@@ -32,14 +31,13 @@ const Navbar: FC = () => {
       <Box px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box>
-            <Link href={'/'}>
-              <Image
-                style={{ cursor: 'pointer' }}
-                src={'/store.png'}
-                width="150"
-                height={'150'}
-              />
-            </Link>
+            <Image
+              onClick={() => router.push('/')}
+              style={{ cursor: 'pointer' }}
+              src={'/store.png'}
+              width="150"
+              height={'150'}
+            />
           </Box>
 
           <Flex alignItems={'center'}>

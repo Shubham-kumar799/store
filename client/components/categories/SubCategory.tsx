@@ -1,15 +1,8 @@
 //components
-import {
-  MenuButton,
-  Menu,
-  MenuItem,
-  MenuList,
-  Button,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { MenuButton, Menu, MenuList, Button } from '@chakra-ui/react';
 
 //icons
-import { ChevronDownIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 //types
 import { FC } from 'react';
@@ -27,7 +20,6 @@ interface Props {
 }
 
 const SubCategory: FC<Props> = ({ parentId, name, colorScheme, slug, id }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
 
   return (
@@ -43,9 +35,6 @@ const SubCategory: FC<Props> = ({ parentId, name, colorScheme, slug, id }) => {
         {name}
       </MenuButton>
       <MenuList>
-        <MenuItem icon={<EditIcon />} onClick={onOpen}>
-          Update
-        </MenuItem>
         <SubCategoryDelete
           id={id}
           parentId={parentId}

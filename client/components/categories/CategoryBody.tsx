@@ -7,7 +7,7 @@ import { FC } from 'react';
 
 //utils
 import { useQuery } from '@apollo/client';
-import { GETCATEGORIES } from '@graphql/categories';
+import { GET_CATEGORIES } from '@graphql/categories';
 import { AppSpinner } from '@components/global';
 
 const ColorScheme = [
@@ -19,7 +19,7 @@ const ColorScheme = [
 ];
 
 const CategoryBody: FC = () => {
-  const { loading, data } = useQuery(GETCATEGORIES);
+  const { loading, data } = useQuery(GET_CATEGORIES);
 
   if (loading) return <AppSpinner />;
 

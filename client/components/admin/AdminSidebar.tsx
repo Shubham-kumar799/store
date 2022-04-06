@@ -6,7 +6,6 @@ import {
   Flex,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   useDisclosure,
@@ -107,45 +106,38 @@ interface NavItemProps extends FlexProps {
 const NavItem = ({ href, icon, children, ...rest }: NavItemProps) => {
   const router = useRouter();
   return (
-    <Link
-      href={href}
-      style={{ textDecoration: 'none' }}
-      _focus={{ boxShadow: 'none' }}
+    <Flex
+      onClick={() => router.push(href)}
+      align="center"
+      p="2"
+      m="2"
+      mx="4"
+      borderRadius="lg"
+      role="group"
+      cursor="pointer"
+      bgColor={router.pathname.includes(href) ? 'brand.primary.500' : undefined}
+      _hover={{
+        bg: 'brand.primary.500',
+        color: 'white',
+      }}
+      {...rest}
     >
-      <Flex
-        align="center"
-        p="2"
-        m="2"
-        mx="4"
-        borderRadius="lg"
-        role="group"
-        cursor="pointer"
-        bgColor={
-          router.pathname.includes(href) ? 'brand.primary.500' : undefined
-        }
-        _hover={{
-          bg: 'brand.primary.500',
+      <Icon
+        mr="4"
+        fontSize="16"
+        _groupHover={{
           color: 'white',
         }}
-        {...rest}
+        as={icon}
+        color={router.pathname.includes(href) ? 'white' : undefined}
+      />
+      <Text
+        color={router.pathname.includes(href) ? 'white' : undefined}
+        fontWeight={'bold'}
       >
-        <Icon
-          mr="4"
-          fontSize="16"
-          _groupHover={{
-            color: 'white',
-          }}
-          as={icon}
-          color={router.pathname.includes(href) ? 'white' : undefined}
-        />
-        <Text
-          color={router.pathname.includes(href) ? 'white' : undefined}
-          fontWeight={'bold'}
-        >
-          {children}
-        </Text>
-      </Flex>
-    </Link>
+        {children}
+      </Text>
+    </Flex>
   );
 };
 
