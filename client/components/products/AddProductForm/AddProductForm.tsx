@@ -1,23 +1,7 @@
 //components
-import {
-  FormControl,
-  FormErrorMessage,
-  Input,
-  VStack,
-  Textarea,
-  Checkbox,
-  useToast,
-} from '@chakra-ui/react';
-import { Formik, Field, FormikProps } from 'formik';
+import { VStack, useToast } from '@chakra-ui/react';
+import { Formik, FormikProps } from 'formik';
 import Price from './Price';
-
-//types
-import { Dispatch, FC, RefObject } from 'react';
-
-//utils
-import { useApi } from '@hooks';
-import { productSchema } from '@utils/productSchema';
-import { AddProductFormValuesType } from '@appTypes/products';
 import CategorySelect from './CategorySelect';
 import Quantity from './Quantity';
 import Shipping from './Shipping';
@@ -26,10 +10,23 @@ import Color from './Color';
 import Name from './Name';
 import SubCategoryCheckbox from './SubCategoryCheckbox';
 import Description from './Description';
+import ImageUpload from './ImageUpload';
+
+//types
+import { Dispatch, FC, RefObject } from 'react';
+
+//utils
+import { useApi } from '@hooks';
+import { productSchema } from '@utils/productSchema';
+import {
+  AddProductFormValuesType,
+  AddProductImageFormValuesType,
+} from '@appTypes/products';
 
 interface Props {
   formRef: RefObject<FormikProps<AddProductFormValuesType>>;
   setIsPositiveButtonLoading: Dispatch<boolean>;
+  uploadImageFormRef: RefObject<FormikProps<AddProductImageFormValuesType>>;
 }
 
 const initialValues = {
@@ -44,7 +41,11 @@ const initialValues = {
   subCategories: [],
 };
 
-const AddProductForm: FC<Props> = ({ formRef, setIsPositiveButtonLoading }) => {
+const AddProductForm: FC<Props> = ({
+  formRef,
+  setIsPositiveButtonLoading,
+  uploadImageFormRef,
+}) => {
   const toast = useToast();
   const [_, API] = useApi({ method: 'Post', url: '/product' });
   const handleSubmit = async (values: { name: string }, resetForm: any) => {
@@ -72,36 +73,38 @@ const AddProductForm: FC<Props> = ({ formRef, setIsPositiveButtonLoading }) => {
   };
 
   return (
-    <Formik
-      validationSchema={productSchema}
-      innerRef={formRef}
-      initialValues={initialValues}
-      onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
-    >
-      {({ values, handleSubmit, errors, touched }) => (
-        <form onSubmit={handleSubmit}>
-          <VStack spacing={4} align="flex-start">
-            <Name errors={errors} touched={touched} />
-            <Description errors={errors} touched={touched} />
-            <Price errors={errors} touched={touched} />
-            <Quantity errors={errors} touched={touched} />
-            <Color errors={errors} touched={touched} />
-            <Brand errors={errors} touched={touched} />
-            <Shipping />
-            {/* saves category's _id instead of name */}
-            <CategorySelect errors={errors} touched={touched} />
-
-            {values.category && (
-              <SubCategoryCheckbox
-                errors={errors}
-                touched={touched}
-                values={values}
-              />
-            )}
-          </VStack>
-        </form>
-      )}
-    </Formik>
+    <>
+      <Formik
+        validationSchema={productSchema}
+        innerRef={formRef}
+        initialValues={initialValues}
+        onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
+      >
+        {({ values, handleSubmit, errors, touched }) => (
+          <form onSubmit={handleSubmit}>
+            <VStack spacing={4} align="flex-start">
+              <Name errors={errors} touched={touched} />
+              <Description errors={errors} touched={touched} />
+              <Price errors={errors} touched={touched} />
+              <Quantity errors={errors} touched={touched} />
+              <Color errors={errors} touched={touched} />
+              <Brand errors={errors} touched={touched} />
+              <Shipping />
+              {/* saves category's _id instead of name */}
+              <CategorySelect errors={errors} touched={touched} />
+              {values.category && (
+                <SubCategoryCheckbox
+                  errors={errors}
+                  touched={touched}
+                  values={values}
+                />
+              )}
+            </VStack>
+          </form>
+        )}
+      </Formik>
+      <ImageUpload />
+    </>
   );
 };
 

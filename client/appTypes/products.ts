@@ -12,6 +12,22 @@ export interface AddProductFormValuesType {
   subCategories: string[];
 }
 
+export interface AddProductImageFormValuesType {
+  images: string[];
+}
+
+export interface AddProductImageFormErrors {
+  errors: FormikErrors<{
+    images: string[];
+  }>;
+}
+
+export interface AddProductImageFormTouched {
+  errors: FormikTouched<{
+    images: string[];
+  }>;
+}
+
 export interface AddProductFromErrorsAndTouched {
   errors: FormikErrors<{
     name: string;

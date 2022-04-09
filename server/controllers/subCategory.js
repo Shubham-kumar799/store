@@ -55,44 +55,6 @@ const listByParentId = async (req, res) => {
   }
 };
 
-const read = async (req, res) => {
-  try {
-    const { slug } = req.params;
-
-    const subCategory = await SubCategory.find({ slug });
-    res.status(200).json({
-      success: true,
-      payload: subCategory,
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: 'Internal Server Error',
-    });
-  }
-};
-
-const update = async (req, res) => {
-  try {
-    const { slug } = req.params;
-    const { name, parent } = req.body;
-    const subCategory = await SubCategory.findOneAndUpdate(
-      { slug },
-      { name, slug: slugify(name), parent },
-      { new: true }
-    );
-    res.status(200).json({
-      success: true,
-      payload: subCategory,
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: 'Internal Server Error',
-    });
-  }
-};
-
 const remove = async (req, res) => {
   try {
     const { slug } = req.params;
@@ -112,9 +74,9 @@ const remove = async (req, res) => {
 
 module.exports = {
   create,
-  update,
+
   list,
   remove,
-  read,
+
   listByParentId,
 };

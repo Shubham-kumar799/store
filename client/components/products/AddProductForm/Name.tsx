@@ -1,8 +1,8 @@
 //compoents
 import { FormControl, FormErrorMessage, Input } from '@chakra-ui/react';
+import { Field } from 'formik';
 
 //types
-import { Field } from 'formik';
 import { AddProductFromErrorsAndTouched } from '@appTypes/products';
 
 //utils
