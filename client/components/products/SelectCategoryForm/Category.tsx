@@ -1,20 +1,21 @@
 //compoents
 import { FormControl, Select, FormErrorMessage } from '@chakra-ui/react';
+import { AppSpinner } from '@components/global';
+import { Field } from 'formik';
 
 //types
-import { Field } from 'formik';
-import { AddProductFromErrorsAndTouched } from '@appTypes/products';
+import { SelectCategoryFormErrorsAndTouched } from '@appTypes/products';
+import { FC } from 'react';
 
 //utils
-import { FC } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_CATEGORIES } from '@graphql/categories';
-import { AppSpinner } from '@components/global';
 
-interface Props extends AddProductFromErrorsAndTouched {}
+interface Props extends SelectCategoryFormErrorsAndTouched {}
 
-const CategorySelect: FC<Props> = ({ errors, touched }) => {
+const Category: FC<Props> = ({ errors, touched }) => {
   const { loading, data } = useQuery(GET_CATEGORIES);
+
   if (loading) return <AppSpinner />;
   return (
     <FormControl isInvalid={!!errors.category && touched.category}>
@@ -37,4 +38,4 @@ const CategorySelect: FC<Props> = ({ errors, touched }) => {
   );
 };
 
-export default CategorySelect;
+export default Category;

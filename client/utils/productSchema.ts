@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const productSchema = Yup.object().shape({
+export const productInfoSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required')
     .min(4, 'Name should be at least 4 characters long')
@@ -17,23 +17,13 @@ export const productSchema = Yup.object().shape({
   quantity: Yup.number().required('Quantity is required').label('Quantity'),
   color: Yup.string().required('Color is required').label('Color'),
   brand: Yup.string().required('Brand is required').label('Brand'),
+});
+
+export const selectCategorySchema = Yup.object().shape({
   category: Yup.string()
     .required('Category is required')
     .label('subCategories'),
   subCategories: Yup.array()
     .min(1, 'Select at least one sub-categories')
     .label('subCategories'),
-  // images: Yup.array().min(1, 'Image is required').label('Images'),
-  // // images: Yup.string()
-  // // .required('Image is required')
-  // // .min(4, 'Name should be at least 4 characters long')
-  // // .label('Name'),
-});
-
-export const productImageSchema = Yup.object().shape({
-  images: Yup.array().min(1, 'Image is required').label('Images'),
-  // // images: Yup.string()
-  // // .required('Image is required')
-  // // .min(4, 'Name should be at least 4 characters long')
-  // // .label('Name'),
 });

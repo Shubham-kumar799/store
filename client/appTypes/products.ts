@@ -12,42 +12,27 @@ export interface AddProductFormValuesType {
   subCategories: string[];
 }
 
-export interface AddProductImageFormValuesType {
-  images: string[];
+export interface ProductInfoFormValuesType {
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  color: string;
+  brand: string;
+  shipping: boolean;
 }
 
-export interface AddProductImageFormErrors {
+export interface SelectCategoryFormValuesType {
+  category: string;
+  subCategories: string[];
+}
+
+export interface SelectCategoryFormErrorsAndTouched {
   errors: FormikErrors<{
-    images: string[];
-  }>;
-}
-
-export interface AddProductImageFormTouched {
-  errors: FormikTouched<{
-    images: string[];
-  }>;
-}
-
-export interface AddProductFromErrorsAndTouched {
-  errors: FormikErrors<{
-    name: string;
-    description: string;
-    price: number;
-    quantity: number;
-    color: string;
-    brand: string;
-    shipping: boolean;
     category: string;
     subCategories: string[];
   }>;
   touched: FormikTouched<{
-    name: string;
-    description: string;
-    price: number;
-    quantity: number;
-    color: string;
-    brand: string;
-    shipping: boolean;
     category: string;
     subCategories: string[];
   }>;

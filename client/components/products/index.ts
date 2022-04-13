@@ -1,2 +1,2 @@
 export { default as ProductsHeader } from './ProductsHeader';
-export { AddProductForm } from './AddProductForm';
+export { default as AddProductSteps } from './AddProductSteps';

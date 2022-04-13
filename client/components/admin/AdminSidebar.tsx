@@ -22,7 +22,7 @@ import { MdAdminPanelSettings } from 'react-icons/md';
 import { SiSmartthings } from 'react-icons/si';
 
 //types
-import { ReactNode } from 'react';
+import { FC } from 'react';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 
@@ -42,10 +42,10 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'SETTINGS', icon: FiSettings, href: '/admin/settings' },
 ];
 
-const AdminSidebar = ({ children }: { children: ReactNode }) => {
+const AdminSidebar: FC = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
-  if (!router.pathname.includes('/admin')) return children;
+  if (!router.pathname.includes('/admin')) return <>{children}</>;
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent

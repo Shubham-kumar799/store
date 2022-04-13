@@ -18,24 +18,24 @@ import { useRef } from 'react';
 
 interface Props {
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
   placement?: string;
   title: string;
-  positiveButtonTitle: string;
-  positiveButtonFunction: () => void;
-  positiveButtonLoading: boolean;
+  positiveButtonTitle?: string;
+  positiveButtonFunction?: () => void;
+  positiveButtonLoading?: boolean;
   size?: string;
   negativeButton?: boolean;
   negativeButtonColorScheme?: string;
   negativeButtonTitle?: string;
+  footer?: boolean;
+  noPadding?: boolean;
 }
 
 const AppDrawer: FC<Props> = ({
   title,
   isOpen,
   onClose,
-  onOpen,
   placement,
   children,
   positiveButtonTitle,
@@ -45,6 +45,8 @@ const AppDrawer: FC<Props> = ({
   negativeButton = true,
   negativeButtonColorScheme = 'brand.error',
   negativeButtonTitle = 'Cancel',
+  footer = true,
+  noPadding = false,
 }) => {
   const firstField = useRef(null);
 
@@ -71,27 +73,28 @@ const AppDrawer: FC<Props> = ({
             <AppCloseButton onClose={onClose} />
           </DrawerHeader>
 
-          <DrawerBody>{children}</DrawerBody>
-
-          <DrawerFooter borderTopWidth="1px">
-            {negativeButton && (
+          <DrawerBody p={noPadding ? 0 : undefined}>{children}</DrawerBody>
+          {footer && (
+            <DrawerFooter borderTopWidth="1px">
+              {negativeButton && (
+                <Button
+                  colorScheme={negativeButtonColorScheme}
+                  variant="ghost"
+                  mr={3}
+                  onClick={onClose}
+                >
+                  {negativeButtonTitle}
+                </Button>
+              )}
               <Button
-                colorScheme={negativeButtonColorScheme}
-                variant="ghost"
-                mr={3}
-                onClick={onClose}
+                isLoading={positiveButtonLoading}
+                colorScheme={'brand.tertiary'}
+                onClick={positiveButtonFunction}
               >
-                {negativeButtonTitle}
+                {positiveButtonTitle}
               </Button>
-            )}
-            <Button
-              isLoading={positiveButtonLoading}
-              colorScheme={'brand.tertiary'}
-              onClick={positiveButtonFunction}
-            >
-              {positiveButtonTitle}
-            </Button>
-          </DrawerFooter>
+            </DrawerFooter>
+          )}
         </DrawerContent>
       </Drawer>
     </>

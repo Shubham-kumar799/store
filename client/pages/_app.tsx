@@ -15,6 +15,7 @@ import { SetUser } from '@components/wrappers';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps);
+
   return (
     <ReduxProvider store={store}>
       <ApolloProvider client={apolloClient}>

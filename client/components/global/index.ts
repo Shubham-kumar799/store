@@ -8,3 +8,4 @@ export { default as AppSpinner } from './AppSpinner';
 export { default as AppModal } from './AppModal';
 export { default as AppCloseButton } from './AppCloseButton';
 export { default as NoData } from './NoData';
+export { default as ImageUpload } from './ImageUpload';

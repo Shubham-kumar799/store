@@ -5,6 +5,7 @@ import { colors } from './foundations/colors';
 
 //components
 import { Button } from './components/button';
+import Steps from './components/Steps';
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -16,6 +17,7 @@ const overrides = {
   colors,
   components: {
     Button,
+    Steps,
   },
 };
 

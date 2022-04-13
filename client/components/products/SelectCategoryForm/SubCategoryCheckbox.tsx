@@ -1,6 +1,5 @@
 //compoents
 import {
-  CheckboxGroup,
   Checkbox,
   FormControl,
   FormErrorMessage,
@@ -11,8 +10,8 @@ import {
 //types
 import { Field } from 'formik';
 import {
-  AddProductFromErrorsAndTouched,
-  AddProductFormValuesType,
+  SelectCategoryFormErrorsAndTouched,
+  SelectCategoryFormValuesType,
 } from '@appTypes/products';
 
 //utils
@@ -21,8 +20,8 @@ import { FC } from 'react';
 import { GET_SUB_CATEGORIES_BY_PARENT_ID } from '@graphql/categories';
 import { AppSpinner } from '@components/global';
 
-interface Props extends AddProductFromErrorsAndTouched {
-  values: AddProductFormValuesType;
+interface Props extends SelectCategoryFormErrorsAndTouched {
+  values: SelectCategoryFormValuesType;
 }
 
 const SubCategoryCheckbox: FC<Props> = ({ values, errors, touched }) => {
@@ -30,14 +29,10 @@ const SubCategoryCheckbox: FC<Props> = ({ values, errors, touched }) => {
     variables: { parentId: values.category },
   });
 
+  if (!values.category) return null;
   if (loading) return <AppSpinner />;
   return (
     <FormControl isInvalid={!!errors.subCategories && touched.subCategories}>
-      {/* <CheckboxGroup
-        id="subCategories"
-        name="subCategories"
-        colorScheme="brand.tertiary"
-      > */}
       <FormLabel>Select Subcategories</FormLabel>
       <Wrap>
         {data?.getSubCategoriesByParentId.map((s: any) => (
@@ -47,12 +42,12 @@ const SubCategoryCheckbox: FC<Props> = ({ values, errors, touched }) => {
             name="subCategories"
             value={s._id}
             colorScheme="brand.primary"
+            key={s._id}
           >
             {s.name}
           </Field>
         ))}
       </Wrap>
-      {/* </CheckboxGroup> */}
       <FormErrorMessage colorScheme={'brand.error'}>
         {errors.subCategories}
       </FormErrorMessage>

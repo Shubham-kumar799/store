@@ -9,11 +9,10 @@ import { Dispatch, FC } from 'react';
 interface Props {
   preview: string;
   name: string;
-  setFiles: Dispatch<any>;
-  files: any;
+  setImages: Dispatch<any>;
 }
 
-const ImagePreview: FC<Props> = ({ name, preview, setFiles, files }) => {
+const ImagePreview: FC<Props> = ({ name, preview, setImages }) => {
   return (
     <Box position="relative" maxW={'330px'} w="max-content" overflow={'hidden'}>
       <Image
@@ -32,7 +31,7 @@ const ImagePreview: FC<Props> = ({ name, preview, setFiles, files }) => {
         colorScheme={'brand.error'}
         aria-label="delete"
         onClick={() =>
-          setFiles((prevState: any) =>
+          setImages((prevState: any) =>
             prevState.filter((p: any) => p.name != name)
           )
         }
