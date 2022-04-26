@@ -3,12 +3,12 @@ import { FormControl, FormErrorMessage, Input } from '@chakra-ui/react';
 import { Field } from 'formik';
 
 //types
-import { AddProductFromErrorsAndTouched } from '@appTypes/products';
+import { AddProductFormErrorsAndTouched } from '@appTypes/products';
 
 //utils
 import { FC } from 'react';
 
-interface Props extends AddProductFromErrorsAndTouched {}
+interface Props extends AddProductFormErrorsAndTouched {}
 
 const Name: FC<Props> = ({ errors, touched }) => {
   return (

@@ -1,101 +1,88 @@
 //components
-import {
-  Box,
-  Text,
-  Wrap,
-  WrapItem,
-  FormErrorMessage,
-  FormControl,
-} from '@chakra-ui/react';
+import { Box, Button, VStack, Alert, AlertIcon, Flex } from '@chakra-ui/react';
 import ImagePreview from './ImagePreview';
 
-//types
-import { Dispatch, FC, useEffect } from 'react';
-
 //utils
-import { useRef, useState } from 'react';
+import { useRef, useState, FC, Dispatch, ChangeEvent } from 'react';
 
 interface Props {
-  images: any[];
-  setImages: Dispatch<any>;
-  error: boolean;
-  max: number;
+  files: any[];
+  setFiles: Dispatch<any[]>;
+  max?: number;
 }
 
-const ImageUpload: FC<Props> = ({ max, images, setImages, error }) => {
-  const inputRef = useRef(null);
-  const [previews, setPreviews] = useState([]);
+const ImageUpload: FC<Props> = ({ max = 4, files, setFiles }) => {
+  const [alert, setAlert] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setPreviews(
-      //@ts-ignore
-      images.map((file: any) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      )
-    );
-  }, [images]);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) {
+      return;
+    }
+    if (event.target.files.length > max - files.length) {
+      setAlert(
+        `Max Images limit exceeded. You can only upload a maximum of ${max} images`
+      );
+      if (inputRef.current) {
+        inputRef.current.value = '';
+      }
 
-  const handleChange = (event: any) => {
-    setImages(Array.from(event.target.files));
+      return;
+    }
+    setAlert('');
+    setFiles([...files, ...Array.from(event.target.files)]);
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
   };
-
   return (
-    <>
-      <FormControl isInvalid={error}>
-        <Box
-          cursor={'pointer'}
-          //@ts-ignore
-          onClick={() => inputRef.current.click()}
-          textAlign={'center'}
-          p={4}
-          borderStyle="dashed"
-          borderWidth={2}
-          borderColor={error ? 'brand.error.200' : undefined}
-          mt={2}
-        >
-          <input
-            ref={inputRef}
-            disabled={images.length > 3}
-            type="file"
-            multiple={true}
-            hidden
-            max={max}
-            accept="image/png,  image/jpeg"
-            //@ts-ignore
-            onChange={event => handleChange(event)}
-          />
-          {images.length >= max ? (
-            <>
-              <Text>{`Maximum ${max} images selected`}</Text>
-              <Text>Cannot select any more images</Text>
-            </>
-          ) : (
-            <>
-              <Text>{`Click to upload Images (maximum ${max})`}</Text>
-              <Text>Only .jpeg and .png images are accepted</Text>
-            </>
-          )}
-        </Box>
-        <FormErrorMessage>Image is required</FormErrorMessage>
-      </FormControl>
+    <VStack spacing={4}>
+      <Box
+        as={Button}
+        textAlign={'center'}
+        alignSelf={'center'}
+        borderWidth={3}
+        borderStyle="dashed"
+        rounded={0}
+        cursor={'pointer'}
+        onClick={() => inputRef?.current?.click()}
+        disabled={files.length >= max}
+      >
+        <input
+          disabled={files.length >= max}
+          ref={inputRef}
+          hidden
+          type="file"
+          accept="image/png , image/jpeg"
+          multiple={true}
+          onChange={event => handleChange(event)}
+        />
+        {files.length >= max
+          ? 'Max files selected'
+          : `Click here to browse images (only jpeg and png accepted)`}
+      </Box>
 
-      <Wrap justify={'space-evenly'} mt={4}>
-        {previews?.map((file: any) => {
+      <Flex p={2} m={2} wrap="wrap" justifyContent="space-evenly">
+        {files?.map(f => {
           return (
-            <WrapItem key={file.name}>
-              <ImagePreview
-                name={file?.name}
-                preview={file?.preview}
-                key={file?.name}
-                setImages={setImages}
-              />
-            </WrapItem>
+            <ImagePreview
+              key={`${Math.random()} ${f}`}
+              file={f}
+              files={files}
+              setFiles={setFiles}
+            />
           );
         })}
-      </Wrap>
-    </>
+      </Flex>
+      <Box justifyContent={'center'}>
+        {alert && (
+          <Alert status="error">
+            <AlertIcon />
+            {alert}
+          </Alert>
+        )}
+      </Box>
+    </VStack>
   );
 };
 

@@ -13,12 +13,12 @@ import { BiRupee } from 'react-icons/bi';
 
 //types
 import { Field } from 'formik';
-import { AddProductFromErrorsAndTouched } from '@appTypes/products';
+import { AddProductFormErrorsAndTouched } from '@appTypes/products';
 
 //utils
 import { FC } from 'react';
 
-interface Props extends AddProductFromErrorsAndTouched {}
+interface Props extends AddProductFormErrorsAndTouched {}
 
 const Price: FC<Props> = ({ errors, touched }) => {
   return (

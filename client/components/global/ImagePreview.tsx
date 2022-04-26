@@ -1,43 +1,44 @@
-import { Box, useColorModeValue, Image, IconButton } from '@chakra-ui/react';
+//components
+import { Flex, IconButton, Image } from '@chakra-ui/react';
 
 //icons
 import { DeleteIcon } from '@chakra-ui/icons';
 
-//types
-import { Dispatch, FC } from 'react';
+//utils
+import { FC, Dispatch } from 'react';
 
 interface Props {
-  preview: string;
-  name: string;
-  setImages: Dispatch<any>;
+  file: any;
+  files: any[];
+  setFiles: Dispatch<any[]>;
 }
 
-const ImagePreview: FC<Props> = ({ name, preview, setImages }) => {
+const ImagePreview: FC<Props> = ({ file, setFiles, files }) => {
   return (
-    <Box position="relative" maxW={'330px'} w="max-content" overflow={'hidden'}>
-      <Image
-        bg={useColorModeValue('white', 'gray.800')}
-        h={180}
-        w={180}
-        src={preview}
-        objectFit="contain"
-      />
+    <Flex
+      alignItems={'center'}
+      borderWidth={2}
+      flexDirection={'column'}
+      position="relative"
+      m={4}
+    >
       <IconButton
-        position="absolute"
-        top={0}
-        right={0}
-        rounded={0}
-        variant={'ghost'}
-        colorScheme={'brand.error'}
         aria-label="delete"
-        onClick={() =>
-          setImages((prevState: any) =>
-            prevState.filter((p: any) => p.name != name)
-          )
-        }
-        icon={<DeleteIcon color={'brand.error.500'} />}
+        top={'-15%'}
+        position={'absolute'}
+        variant={'solid'}
+        colorScheme="red"
+        rounded={'full'}
+        icon={<DeleteIcon />}
+        onClick={() => setFiles(files.filter(f => f.name != file.name))}
       />
-    </Box>
+      <Image
+        w={150}
+        h={150}
+        objectFit="contain"
+        src={URL.createObjectURL(file)}
+      />
+    </Flex>
   );
 };
 

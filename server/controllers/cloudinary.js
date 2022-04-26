@@ -12,7 +12,6 @@ const upload = async (req, res) => {
       public_id: `${Date.now()}`,
       resource_type: 'auto', //jpeg , png etc
     });
-    console.log('result => ', result);
     res.status(201).json({
       success: true,
       payload: {
@@ -43,7 +42,18 @@ const remove = async (req, res) => {
   });
 };
 
+const testUpload = async (req, res) => {
+  try {
+    console.log('Images => ', req);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.log('error in test uploaed');
+    res.status(400).json({ success: false });
+  }
+};
+
 module.exports = {
   upload,
   remove,
+  testUpload,
 };

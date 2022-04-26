@@ -30,6 +30,8 @@ interface Props {
   negativeButtonTitle?: string;
   footer?: boolean;
   noPadding?: boolean;
+  negativeButtonFunction?: () => void;
+  positiveButtonDisabled?: boolean;
 }
 
 const AppDrawer: FC<Props> = ({
@@ -47,6 +49,8 @@ const AppDrawer: FC<Props> = ({
   negativeButtonTitle = 'Cancel',
   footer = true,
   noPadding = false,
+  negativeButtonFunction,
+  positiveButtonDisabled = false,
 }) => {
   const firstField = useRef(null);
 
@@ -81,12 +85,15 @@ const AppDrawer: FC<Props> = ({
                   colorScheme={negativeButtonColorScheme}
                   variant="ghost"
                   mr={3}
-                  onClick={onClose}
+                  onClick={
+                    negativeButtonFunction ? negativeButtonFunction : onClose
+                  }
                 >
                   {negativeButtonTitle}
                 </Button>
               )}
               <Button
+                disabled={positiveButtonDisabled}
                 isLoading={positiveButtonLoading}
                 colorScheme={'brand.tertiary'}
                 onClick={positiveButtonFunction}

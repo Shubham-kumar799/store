@@ -1,5 +1,5 @@
 //components
-import { VStack, Button } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import { Formik, FormikProps } from 'formik';
 import Price from '../ProductInfoForm/Price';
 import Quantity from '../ProductInfoForm/Quantity';
@@ -10,7 +10,7 @@ import Name from '../ProductInfoForm/Name';
 import Description from '../ProductInfoForm/Description';
 
 //types
-import { FC, RefObject } from 'react';
+import { FC, RefObject, Dispatch, SetStateAction } from 'react';
 import { ProductInfoFormValuesType } from '@appTypes/products';
 
 //utils
@@ -19,6 +19,8 @@ import { productInfoSchema } from '@utils/productSchema';
 interface Props {
   formRef: RefObject<FormikProps<ProductInfoFormValuesType>>;
   nextStep: () => void;
+  setNewProduct: Dispatch<SetStateAction<{}>>;
+  newProduct: any;
 }
 
 const initialValues = {
@@ -31,12 +33,25 @@ const initialValues = {
   shipping: false,
 };
 
-const ProductInfoForm: FC<Props> = ({ formRef, nextStep }) => {
+const ProductInfoForm: FC<Props> = ({
+  formRef,
+  nextStep,
+  setNewProduct,
+  newProduct,
+}) => {
   const handleSubmit = async (
     values: ProductInfoFormValuesType,
     resetForm: any
   ) => {
-    // console.log('product info values => ', values);
+    setNewProduct({
+      ...newProduct,
+      ...values,
+    });
+    console.log('product info values => ', newProduct);
+    // setNewProduct(prevState => ({
+    //   ...prevState,
+    //   ...values,
+    // }));
     nextStep();
   };
 
@@ -57,13 +72,6 @@ const ProductInfoForm: FC<Props> = ({ formRef, nextStep }) => {
             <Color errors={errors} touched={touched} />
             <Brand errors={errors} touched={touched} />
             <Shipping />
-            <Button
-              colorScheme={'brand.tertiary'}
-              alignSelf={'flex-end'}
-              type="submit"
-            >
-              Next
-            </Button>
           </VStack>
         </form>
       )}
