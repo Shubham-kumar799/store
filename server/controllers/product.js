@@ -3,8 +3,9 @@ const slugify = require('slugify');
 
 const create = async (req, res) => {
   try {
-    req.body.slug = slugify(req.body.name);
-    const product = await new Product(req.body).save();
+    console.log('Product', req.body.product);
+    req.body.slug = slugify(req.body.product.name);
+    const product = await new Product(req.body.product).save();
     res.status(201).json({
       success: true,
       payload: product,
@@ -18,7 +19,7 @@ const create = async (req, res) => {
   }
 };
 
-const list = async (req, res) => {
+const list = async (_, res) => {
   try {
     const products = await Product.find();
     res.status(201).json({

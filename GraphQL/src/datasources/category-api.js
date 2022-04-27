@@ -9,6 +9,9 @@ class TrackAPI extends RESTDataSource {
   getCategories() {
     return this.get('/category/all').then(data => data.payload);
   }
+  getCategoryById(id) {
+    return this.get(`/category/single/${id}`).then(data => data.payload);
+  }
 }
 
 module.exports = TrackAPI;

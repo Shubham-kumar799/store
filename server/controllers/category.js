@@ -92,10 +92,27 @@ const remove = async (req, res) => {
   }
 };
 
+const readById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const category = await Category.findById(id);
+    res.status(200).json({
+      success: true,
+      payload: category,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: 'Internal Server Error',
+    });
+  }
+};
+
 module.exports = {
   create,
   update,
   list,
   remove,
   read,
+  readById,
 };

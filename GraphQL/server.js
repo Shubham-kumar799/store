@@ -6,8 +6,7 @@ const resolvers = require('./src/resolvers');
 //API's
 const CategoryAPI = require('./src/datasources/category-api');
 const SubCategoryAPI = require('./src/datasources/subCategory-api');
-
-console.log(`${process.env.REST_API_BASEURL}/category`);
+const ProductAPI = require('./src/datasources/product-api');
 
 const server = new ApolloServer({
   typeDefs,
@@ -16,6 +15,7 @@ const server = new ApolloServer({
     return {
       categoryAPI: new CategoryAPI(),
       subCategoryAPI: new SubCategoryAPI(),
+      productAPI: new ProductAPI(),
     };
   },
 });

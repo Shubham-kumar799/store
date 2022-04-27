@@ -13,6 +13,10 @@ class SubCategoryAPI extends RESTDataSource {
   getSubCategoriesByParentId(parentId) {
     return this.get(`/subcategory/${parentId}`).then(data => data.payload);
   }
+
+  getSubCategoryById(id) {
+    return this.get(`/subcategory/single/${id}`).then(data => data.payload);
+  }
 }
 
 module.exports = SubCategoryAPI;

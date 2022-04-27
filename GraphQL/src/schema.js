@@ -4,10 +4,10 @@ const typeDefs = gql`
   type Query {
     "Query to get all categories"
     getCategories: [Category!]
-    "Query to get all sub categories"
-    getSubCategories: [SubCategory!]
     "Query sub categories by their parent category id"
     getSubCategoriesByParentId(parentId: ID!): [SubCategory!]
+    "Query to get all products"
+    getProducts: [Product!]
   }
 
   type Category {
@@ -29,6 +29,41 @@ const typeDefs = gql`
     slug: String
     "parent id of sub category"
     parent: ID!
+    createdAt: String
+    updatedAt: String
+  }
+  type Image {
+    public_id: String
+    url: String
+  }
+  type Product {
+    "Mongo ID of the product"
+    _id: ID!
+    "Name of the product"
+    name: String
+    "slug of the product"
+    slug: String
+    "description of the product"
+    description: String
+    "price of the product"
+    price: Int
+    "category of the product"
+    category: Category
+    "subCategories of the product"
+    subCategories: [SubCategory!]
+    "Quantity of the products"
+    quantity: Int
+    "Number of quantities sold"
+    sold: Int
+    "Images of the product"
+    images: [Image!]
+    "Is shipping available"
+    shipping: Boolean
+    "color available"
+    color: String
+    "brand of the product"
+    brand: String
+    "Rating of the products"
     createdAt: String
     updatedAt: String
   }
