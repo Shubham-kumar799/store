@@ -1,4 +1,29 @@
 import { FormikErrors, FormikTouched } from 'formik';
+import { Category } from './categories';
+import { SubCategory } from './subCategories';
+
+export interface Product {
+  _id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  quantity: number;
+  color: string;
+  brand: string;
+  sold: number;
+  shipping: boolean;
+  category: Category;
+  subCategories: SubCategory[];
+  images: ProductImage[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface ProductImage {
+  public_id: string;
+  url: string;
+}
 
 export interface AddProductFormValuesType {
   name: string;

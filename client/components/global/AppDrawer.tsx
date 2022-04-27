@@ -55,56 +55,54 @@ const AppDrawer: FC<Props> = ({
   const firstField = useRef(null);
 
   return (
-    <>
-      <Drawer
-        isOpen={isOpen}
-        closeOnOverlayClick={false}
-        size={size ? size : 'xs'}
-        // @ts-ignore
-        placement={placement ? placement : 'right'}
-        initialFocusRef={firstField}
-        onClose={onClose}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader
-            display={'flex'}
-            alignItems={'center'}
-            justifyContent={'space-between'}
-            borderBottomWidth="1px"
-          >
-            {title}
-            <AppCloseButton onClose={onClose} />
-          </DrawerHeader>
+    <Drawer
+      isOpen={isOpen}
+      closeOnOverlayClick={false}
+      size={size ? size : 'xs'}
+      // @ts-ignore
+      placement={placement ? placement : 'right'}
+      initialFocusRef={firstField}
+      onClose={onClose}
+    >
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerHeader
+          display={'flex'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+          borderBottomWidth="1px"
+        >
+          {title}
+          <AppCloseButton onClose={onClose} />
+        </DrawerHeader>
 
-          <DrawerBody p={noPadding ? 0 : undefined}>{children}</DrawerBody>
-          {footer && (
-            <DrawerFooter borderTopWidth="1px">
-              {negativeButton && (
-                <Button
-                  colorScheme={negativeButtonColorScheme}
-                  variant="ghost"
-                  mr={3}
-                  onClick={
-                    negativeButtonFunction ? negativeButtonFunction : onClose
-                  }
-                >
-                  {negativeButtonTitle}
-                </Button>
-              )}
+        <DrawerBody p={noPadding ? 0 : undefined}>{children}</DrawerBody>
+        {footer && (
+          <DrawerFooter borderTopWidth="1px">
+            {negativeButton && (
               <Button
-                disabled={positiveButtonDisabled}
-                isLoading={positiveButtonLoading}
-                colorScheme={'brand.tertiary'}
-                onClick={positiveButtonFunction}
+                colorScheme={negativeButtonColorScheme}
+                variant="ghost"
+                mr={3}
+                onClick={
+                  negativeButtonFunction ? negativeButtonFunction : onClose
+                }
               >
-                {positiveButtonTitle}
+                {negativeButtonTitle}
               </Button>
-            </DrawerFooter>
-          )}
-        </DrawerContent>
-      </Drawer>
-    </>
+            )}
+            <Button
+              disabled={positiveButtonDisabled}
+              isLoading={positiveButtonLoading}
+              colorScheme={'brand.tertiary'}
+              onClick={positiveButtonFunction}
+            >
+              {positiveButtonTitle}
+            </Button>
+          </DrawerFooter>
+        )}
+      </DrawerContent>
+    </Drawer>
   );
 };
 

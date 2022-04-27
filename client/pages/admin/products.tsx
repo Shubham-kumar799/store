@@ -1,6 +1,10 @@
 //components
 import { Flex, Divider, useDisclosure } from '@chakra-ui/react';
-import { ProductsHeader, AddProductParent } from '@components/products';
+import {
+  ProductsHeader,
+  AddProductParent,
+  AdminProducts,
+} from '@components/products';
 
 //types
 import { NextPage } from 'next';
@@ -10,11 +14,12 @@ const Products: NextPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
-    <Flex direction={'column'} flex={1} justifyContent="center">
+    <Flex direction={'column'} justifyContent="center">
       <AddProductParent isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
 
       <ProductsHeader onOpen={onOpen} />
       <Divider />
+      <AdminProducts />
     </Flex>
   );
 };

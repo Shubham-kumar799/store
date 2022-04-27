@@ -47,7 +47,7 @@ const AdminSidebar: FC = ({ children }) => {
   const router = useRouter();
   if (!router.pathname.includes('/admin')) return <>{children}</>;
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -66,7 +66,24 @@ const AdminSidebar: FC = ({ children }) => {
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box
+        css={{
+          '&::-webkit-scrollbar': {
+            width: '4px',
+          },
+          '&::-webkit-scrollbar-track': {
+            width: '6px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: '#8ccef0',
+            borderRadius: '24px',
+          },
+        }}
+        ml={{ base: 0, md: 60 }}
+        p="4"
+        overflow={'auto'}
+        maxH="90vh"
+      >
         {children}
       </Box>
     </Box>
@@ -83,8 +100,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       bg={useColorModeValue('white', 'gray.800')}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
-      h="full"
       {...rest}
+      h="100vh"
     >
       <Flex alignItems="center" mx="8" justifyContent="space-between">
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />

@@ -1,7 +1,6 @@
 //components
 import { AddProductSteps } from '@components/products';
 import { AppDrawer } from '@components/global';
-import { useToast } from '@chakra-ui/react';
 
 //types
 import { FC } from 'react';
@@ -24,15 +23,14 @@ interface Props {
 }
 
 const AddProductParent: FC<Props> = ({ isOpen, onClose, onOpen }) => {
-  const toast = useToast();
   const { nextStep, prevStep, activeStep, reset } = useSteps({
     initialStep: 0,
   });
   const [loading, setLoading] = useState(false);
   const [_, IMAGEAPI] = useApi({ method: 'Post', url: '/upload_images' });
+  const [__, PRODUCTAPI] = useApi({ method: 'Post', url: '/product' });
   const [images, setImages] = useState<any[]>([]);
   const [newProduct, setNewProduct] = useState({});
-  // const [uploadedImages, setUploadedImages] = useState([]);
   const productInfoFormRef =
     useRef<FormikProps<ProductInfoFormValuesType>>(null);
   const selectCategoryFormRef =
@@ -60,22 +58,6 @@ const AddProductParent: FC<Props> = ({ isOpen, onClose, onOpen }) => {
         'base64'
       );
     });
-
-  // const uploadImage = async (uri: any) => {
-  //   try {
-  //     const data = await IMAGEAPI({ body: { image: uri } });
-  //     console.log('Images upload data', data);
-  //     //@ts-ignore
-  //     setUploadedImages([...uploadedImages, data.payload]);
-  //   } catch (error) {
-  //     toast({
-  //       status: 'error',
-  //       title: 'Error uploading images. Try Again',
-  //       position: 'top-left',
-  //     });
-  //     console.log('error uploading image', error);
-  //   }
-  // };
 
   const uploadImage = async (uri: any) =>
     new Promise((resolve, reject) => {
@@ -107,13 +89,11 @@ const AddProductParent: FC<Props> = ({ isOpen, onClose, onOpen }) => {
 
       setNewProduct({
         ...newProduct,
-        //@ts-ignore
-        images: [...uploadedImages],
       });
-      console.log('uploaded Images', uploadedImages);
-      console.log('New Product', newProduct);
+      await PRODUCTAPI({
+        body: { product: { ...newProduct, images: [...uploadedImages] } },
+      });
       nextStep();
-      setLoading(false);
     } catch (error) {
       console.log('add Product  error', error);
     } finally {
@@ -165,34 +145,3 @@ const AddProductParent: FC<Props> = ({ isOpen, onClose, onOpen }) => {
 };
 
 export default AddProductParent;
-
-// const uploadImages = () => {
-//   return new Promise(resolve => {
-//     images.forEach(async i => {
-//       Resizer.imageFileResizer(
-//         i,
-//         720,
-//         720,
-//         'PNG',
-//         100,
-//         0,
-//         async uri => {
-//           try {
-//             const data = await IMAGEAPI({ body: { image: uri } });
-//             console.log('Images upload data', data);
-//             //@ts-ignore
-//             setUploadedImages([...uploadedImages, data.payload]);
-//           } catch (error) {
-//             toast({
-//               status: 'error',
-//               title: 'Error uploading images. Try Again',
-//               position: 'top-left',
-//             });
-//             console.log('error uploading image', error);
-//           }
-//         },
-//         'base64'
-//       );
-//     }, resolve(null));
-//   });
-// };

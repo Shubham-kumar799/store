@@ -1,7 +1,15 @@
 import { FC } from 'react';
 
 //comopnents
-import { Box, Flex, Stack, IconButton, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Stack,
+  IconButton,
+  Button,
+  useColorModeValue,
+  Portal,
+} from '@chakra-ui/react';
 import LogInAndSignUpButton from './LogInAndSignUpButton';
 import LogoutButton from './LogoutButton';
 import ToggleThemeButton from './ToggleThemeButton';
@@ -27,47 +35,46 @@ const Navbar: FC = () => {
     return null;
 
   return (
-    <>
-      <Box px={4}>
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>
-            <Image
-              onClick={() => router.push('/')}
-              style={{ cursor: 'pointer' }}
-              src={'/store.png'}
-              width="150"
-              height={'150'}
-            />
-          </Box>
+    <Box bg={useColorModeValue('white', 'gray.800')} px={4}>
+      <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+        <Box>
+          <Image
+            onClick={() => router.push('/')}
+            style={{ cursor: 'pointer' }}
+            src={'/store.png'}
+            width="150"
+            height={'150'}
+          />
+        </Box>
 
-          <Flex alignItems={'center'}>
-            <Stack direction={'row'} spacing={7}>
-              {user &&
-                user.role === 'admin' &&
-                !router.pathname.includes('/admin') && (
-                  <Button
-                    rounded={'full'}
-                    onClick={() => router.push('/admin/console')}
-                  >
-                    To Admin Dashboard
-                  </Button>
-                )}
-              {user && (
-                <IconButton
-                  colorScheme={'brand.tertiary'}
-                  aria-label="Cart"
-                  icon={<MdShoppingBasket />}
-                />
+        <Flex alignItems={'center'}>
+          <Stack direction={'row'} spacing={7}>
+            {user &&
+              user.role === 'admin' &&
+              !router.pathname.includes('/admin') && (
+                <Button
+                  rounded={'full'}
+                  onClick={() => router.push('/admin/console')}
+                >
+                  To Admin Dashboard
+                </Button>
               )}
-              {user && !user.emailVerified && <VerifyEmailButton />}
+            {user && (
+              <IconButton
+                variant={'ghost'}
+                colorScheme={'brand.tertiary'}
+                aria-label="Cart"
+                icon={<MdShoppingBasket />}
+              />
+            )}
+            {user && !user.emailVerified && <VerifyEmailButton />}
 
-              <ToggleThemeButton />
-              {user ? <LogoutButton /> : <LogInAndSignUpButton />}
-            </Stack>
-          </Flex>
+            <ToggleThemeButton />
+            {user ? <LogoutButton /> : <LogInAndSignUpButton />}
+          </Stack>
         </Flex>
-      </Box>
-    </>
+      </Flex>
+    </Box>
   );
 };
 

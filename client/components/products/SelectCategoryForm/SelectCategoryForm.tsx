@@ -23,8 +23,8 @@ interface Props {
 }
 
 const initialValues = {
-  category: 'jwe;ljkwl',
-  subCategories: ['fdskjl;fjsk'],
+  category: '',
+  subCategories: [],
 };
 
 const SelectCategoryForm: FC<Props> = ({
