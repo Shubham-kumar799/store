@@ -50,7 +50,7 @@ const CardButtons: FC<Props> = ({ product }) => {
   };
   return (
     <HStack m={2} flex={1} justifyContent={'space-around'}>
-      <Tooltip label="Edit or update product">
+      <Tooltip label="Edit product is unavailable at the moment">
         <IconButton
           variant={'outline'}
           colorScheme={'brand.primary'}

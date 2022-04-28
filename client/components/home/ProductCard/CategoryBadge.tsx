@@ -13,7 +13,6 @@ const CategoryBadge: FC<Props> = ({ name }) => {
     <Badge
       px={2}
       py={1}
-      m={2}
       alignSelf="center"
       bg={useColorModeValue('gray.50', 'gray.800')}
       fontWeight={'400'}

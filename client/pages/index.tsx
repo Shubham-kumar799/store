@@ -1,5 +1,5 @@
 //components
-import { HomeCarousel } from '@components/home';
+import { HomeBody, HomeCarousel } from '@components/home';
 
 //utils
 import { useAppSelector, selectUser } from '@store';
@@ -12,8 +12,7 @@ const Home: NextPage = () => {
   return (
     <>
       <HomeCarousel />
-      <div>Shubham The Great</div>
-      <div>{JSON.stringify(user)}</div>
+      <HomeBody />
     </>
   );
 };

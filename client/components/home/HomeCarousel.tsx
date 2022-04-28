@@ -13,6 +13,9 @@ import Slider from 'react-slick';
 //icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 
+//types
+import { FC } from 'react';
+
 //utils
 import { useState } from 'react';
 
@@ -28,7 +31,7 @@ const settings = {
   slidesToScroll: 1,
 };
 
-const HomeCarousel = () => {
+const HomeCarousel: FC = () => {
   const [slider, setSlider] = useState<Slider | null>(null);
 
   // These are the breakpoints which changes the position of the

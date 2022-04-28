@@ -3,22 +3,22 @@ import {
   Image,
   Box,
   Center,
-  Stack,
+  Flex,
   Divider,
   useColorModeValue,
 } from '@chakra-ui/react';
+import CategoryBadge from './CategoryBadge';
 
 //types
 import { FC } from 'react';
 import { Product } from '@appTypes/products';
-import CardButtons from './CardButtons';
-import CategoryBadge from './CategoryBadge';
+import CardFooter from './CardFooter';
 
 interface Props {
   product: Product;
 }
 
-const AdminProductCard: FC<Props> = ({ product }) => {
+const ProductCard: FC<Props> = ({ product }) => {
   return (
     <Box
       transition="all .3s ease"
@@ -38,7 +38,7 @@ const AdminProductCard: FC<Props> = ({ product }) => {
     >
       <Image
         alt="product-image"
-        objectFit={'fill'}
+        objectFit={'cover'}
         borderTopRadius={'xl'}
         h={250}
         width={320}
@@ -50,37 +50,25 @@ const AdminProductCard: FC<Props> = ({ product }) => {
         {product.name}
       </Heading>
 
-      <CategoryBadge name={product.category.name} />
-
-      <Stack
-        scrollBehavior={'smooth'}
-        overflow={'auto'}
-        whiteSpace="nowrap"
-        direction={'row'}
-        mt={4}
-        ml={2}
-        mr={2}
-        css={{
-          '.container': {
-            '-ms-overflow-style': 'none' /* Internet Explorer 10+ */,
-            'scrollbar-width': 'none' /* Firefox */,
-          },
-          '&::-webkit-scrollbar': {
-            display: 'none' /* Safari and Chrome */,
-          },
-        }}
+      <Flex
+        h={'24'}
+        justifyContent="center"
+        overflow="hidden"
+        alignItems={'center'}
       >
-        {product.subCategories.map(s => (
-          <CategoryBadge key={s._id} name={s.name} />
-        ))}
-      </Stack>
+        <Box>
+          {product.subCategories.map(s => (
+            <CategoryBadge key={s._id} name={s.name} />
+          ))}
+        </Box>
+      </Flex>
 
       <Divider mt={4} />
       <Center mt={2} mb={2}>
-        <CardButtons product={product} />
+        <CardFooter />
       </Center>
     </Box>
   );
 };
 
-export default AdminProductCard;
+export default ProductCard;
