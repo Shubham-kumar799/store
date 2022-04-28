@@ -43,6 +43,7 @@ const SubCategoryCheckbox: FC<Props> = ({ values, errors, touched }) => {
             value={s._id}
             colorScheme="brand.primary"
             key={s._id}
+            isChecked={values.subCategories.includes(s._id)}
           >
             {s.name}
           </Field>

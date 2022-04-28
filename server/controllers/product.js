@@ -3,8 +3,7 @@ const slugify = require('slugify');
 
 const create = async (req, res) => {
   try {
-    console.log('Product', req.body.product);
-    req.body.slug = slugify(req.body.product.name);
+    req.body.product.slug = slugify(req.body.product.name);
     const product = await new Product(req.body.product).save();
     res.status(201).json({
       success: true,
@@ -35,7 +34,23 @@ const list = async (_, res) => {
   }
 };
 
+const remove = async (req, res) => {
+  try {
+    console.log('Id => ', req.params.id);
+    await Product.findByIdAndDelete(req.params.id);
+    res.status(201).json({
+      success: true,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      payload: 'Internal server error',
+    });
+  }
+};
+
 module.exports = {
   create,
   list,
+  remove,
 };

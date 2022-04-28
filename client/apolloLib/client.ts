@@ -7,7 +7,11 @@ import {
 } from '@apollo/client';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
-import { mergeGetCategories, mergeGetSubCategoriesByParentId } from './utils';
+import {
+  mergeGetCategories,
+  mergeGetProducts,
+  mergeGetSubCategoriesByParentId,
+} from './utils';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -29,6 +33,9 @@ function createApolloClient() {
             },
             getSubCategoriesByParentId: {
               merge: mergeGetSubCategoriesByParentId,
+            },
+            getProducts: {
+              merge: mergeGetProducts,
             },
           },
         },

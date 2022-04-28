@@ -35,11 +35,10 @@ const SubCategoryDrawer: FC<Props> = ({
     <AppDrawer
       isOpen={isOpen}
       onClose={onClose}
-      onOpen={onOpen}
       positiveButtonFunction={() => formRef.current?.submitForm()}
       positiveButtonLoading={isLoading}
       positiveButtonTitle={'Create New SubCategory'}
-      size={'lg'}
+      size={'sm'}
       title={`SubCategories for ${parentName}`}
       negativeButtonColorScheme={'brand.tertiary'}
       negativeButtonTitle="Done"

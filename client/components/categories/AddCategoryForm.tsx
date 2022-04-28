@@ -17,7 +17,7 @@ import { AddCategoryFormValuesType } from '@appTypes/categories';
 import { categorySchema } from '@utils/categorySchema';
 import { useApi } from '@hooks';
 import { useApolloClient } from '@apollo/client';
-import { GETCATEGORIES } from '@graphql/categories';
+import { GET_CATEGORIES } from '@graphql/categories';
 import slugify from 'slugify';
 
 interface Props {
@@ -36,7 +36,7 @@ const AddCategoryForm: FC<Props> = ({ formRef, setPositiveButtonLoading }) => {
       const body = { name: values.name };
       const data = await API({ body });
       cache.writeQuery({
-        query: GETCATEGORIES,
+        query: GET_CATEGORIES,
         data: {
           getCategories: {
             __typename: 'Category',

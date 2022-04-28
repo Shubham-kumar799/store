@@ -19,8 +19,8 @@ const AdminProducts: FC = () => {
   return (
     <Grid templateColumns="repeat(3, 1fr)">
       {data?.getProducts.map((product: Product) => (
-        <GridItem>
-          <AdminProductCard key={product._id} product={product} />
+        <GridItem key={product._id}>
+          <AdminProductCard product={product} />
         </GridItem>
       ))}
     </Grid>

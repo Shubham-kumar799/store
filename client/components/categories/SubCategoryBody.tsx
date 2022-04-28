@@ -25,7 +25,7 @@ const SubCategoryBody: FC<Props> = ({ parentName, colorScheme, parentId }) => {
 
   if (data.getSubCategoriesByParentId.length == 0)
     return (
-      <Center h={'full'}>
+      <Center h={'50vh'}>
         <NoData text={`Category ${parentName}  has no sub-categories`} />
       </Center>
     );

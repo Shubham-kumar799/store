@@ -15,13 +15,15 @@ import { FC } from 'react';
 
 interface Props {
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
   title: string;
-  positiveButtonTitle: string;
-  positiveButtonFunction: () => void;
-  positiveButtonLoading: boolean;
+  positiveButtonTitle?: string;
+  positiveButtonFunction?: () => void;
+  positiveButtonLoading?: boolean;
   initialRef?: any;
+  footer?: boolean;
+  closable?: boolean;
+  header?: boolean;
 }
 
 const AppModal: FC<Props> = ({
@@ -30,36 +32,48 @@ const AppModal: FC<Props> = ({
   positiveButtonTitle,
   title,
   isOpen,
-  onOpen,
   onClose,
   children,
+  footer = true,
+  closable = true,
+  header = true,
 }) => {
   return (
-    <Modal isCentered={true} isOpen={isOpen} onClose={onClose} autoFocus={true}>
+    <Modal
+      closeOnOverlayClick={closable}
+      isCentered={true}
+      isOpen={isOpen}
+      onClose={onClose}
+      autoFocus={true}
+    >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader
-          display={'flex'}
-          flex={1}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-        >
-          {title}
-          <AppCloseButton onClose={onClose} />
-        </ModalHeader>
+        {header && (
+          <ModalHeader
+            display={'flex'}
+            flex={1}
+            justifyContent={'space-between'}
+            alignItems={'center'}
+          >
+            {title}
+            {closable && <AppCloseButton onClose={onClose} />}
+          </ModalHeader>
+        )}
         <ModalBody pb={6}>{children}</ModalBody>
 
-        <ModalFooter>
-          <Button
-            onClick={() => positiveButtonFunction()}
-            isLoading={positiveButtonLoading}
-            colorScheme="brand.tertiary"
-            mr={3}
-          >
-            {positiveButtonTitle}
-          </Button>
-          <Button onClick={onClose}>Cancel</Button>
-        </ModalFooter>
+        {footer && (
+          <ModalFooter>
+            <Button
+              onClick={positiveButtonFunction}
+              isLoading={positiveButtonLoading}
+              colorScheme="brand.tertiary"
+              mr={3}
+            >
+              {positiveButtonTitle}
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        )}
       </ModalContent>
     </Modal>
   );

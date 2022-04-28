@@ -3,7 +3,6 @@ import { VStack } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import SubCategoryCheckbox from './SubCategoryCheckbox';
 import Category from './Category';
-import { AppSpinner } from '@components/global';
 
 //types
 import { SelectCategoryFormValuesType } from '@appTypes/products';
@@ -12,8 +11,6 @@ import { FC, RefObject, Dispatch, SetStateAction } from 'react';
 
 //utils
 import { selectCategorySchema } from '@utils/productSchema';
-import { useQuery } from '@apollo/client';
-import { GET_CATEGORIES } from '@graphql/categories';
 
 interface Props {
   nextStep: () => void;
@@ -22,42 +19,30 @@ interface Props {
   newProduct: any;
 }
 
-const initialValues = {
-  category: '',
-  subCategories: [],
-};
-
 const SelectCategoryForm: FC<Props> = ({
   nextStep,
   formRef,
   setNewProduct,
   newProduct,
 }) => {
-  const { loading, data } = useQuery(GET_CATEGORIES);
-
-  const handleSubmit = async (
-    values: SelectCategoryFormValuesType,
-    resetForm: any
-  ) => {
-    // setNewProduct(prevState => ({
-    //   ...prevState,
-    //   ...values,
-    // }));
+  const initialValues = {
+    category: newProduct.category || '',
+    subCategories: newProduct.subCategories || [],
+  };
+  const handleSubmit = async (values: SelectCategoryFormValuesType) => {
     setNewProduct({
       ...newProduct,
       ...values,
     });
-    console.log('select category values => ', newProduct);
     nextStep();
   };
 
-  if (loading) return <AppSpinner />;
   return (
     <Formik
       innerRef={formRef}
       validationSchema={selectCategorySchema}
       initialValues={initialValues}
-      onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
+      onSubmit={values => handleSubmit(values)}
     >
       {({ values, handleSubmit, errors, touched }) => (
         <form onSubmit={handleSubmit}>

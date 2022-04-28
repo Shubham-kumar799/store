@@ -23,22 +23,21 @@ interface Props {
   newProduct: any;
 }
 
-const initialValues = {
-  name: 'Name',
-  description: 'Description',
-  price: 100, //change this
-  quantity: 0,
-  color: 'Color',
-  brand: 'Brand',
-  shipping: false,
-};
-
 const ProductInfoForm: FC<Props> = ({
   formRef,
   nextStep,
   setNewProduct,
   newProduct,
 }) => {
+  const initialValues = {
+    ...newProduct,
+    // name: 'Name',
+    // description: 'description',
+    // price: 100,
+    // color: 'black',
+    // brand: 'bRandk',
+    // quantity: 100,
+  };
   const handleSubmit = async (
     values: ProductInfoFormValuesType,
     resetForm: any
@@ -47,11 +46,6 @@ const ProductInfoForm: FC<Props> = ({
       ...newProduct,
       ...values,
     });
-    console.log('product info values => ', newProduct);
-    // setNewProduct(prevState => ({
-    //   ...prevState,
-    //   ...values,
-    // }));
     nextStep();
   };
 
@@ -62,7 +56,7 @@ const ProductInfoForm: FC<Props> = ({
       initialValues={initialValues}
       onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
     >
-      {({ handleSubmit, errors, touched }) => (
+      {({ values, handleSubmit, errors, touched }) => (
         <form onSubmit={handleSubmit}>
           <VStack spacing={6} align="flex-start">
             <Name errors={errors} touched={touched} />
@@ -71,7 +65,7 @@ const ProductInfoForm: FC<Props> = ({
             <Quantity errors={errors} touched={touched} />
             <Color errors={errors} touched={touched} />
             <Brand errors={errors} touched={touched} />
-            <Shipping />
+            <Shipping isChecked={values.shipping} />
           </VStack>
         </form>
       )}

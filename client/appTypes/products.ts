@@ -16,8 +16,6 @@ export interface Product {
   category: Category;
   subCategories: SubCategory[];
   images: ProductImage[];
-  createdAt: string;
-  updatedAt: string;
 }
 
 interface ProductImage {

@@ -71,13 +71,13 @@ const AdminProductCard: FC<Props> = ({ product }) => {
         }}
       >
         {product.subCategories.map(s => (
-          <CategoryBadge name={s.name} />
+          <CategoryBadge key={s._id} name={s.name} />
         ))}
       </Stack>
 
       <Divider mt={4} />
       <Center mt={2} mb={2}>
-        <CardButtons />
+        <CardButtons product={product} />
       </Center>
     </Box>
   );
