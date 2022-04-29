@@ -18,7 +18,7 @@ export interface Product {
   images: ProductImage[];
 }
 
-interface ProductImage {
+export interface ProductImage {
   public_id: string;
   url: string;
 }

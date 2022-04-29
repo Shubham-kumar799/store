@@ -7,7 +7,7 @@ import { FC } from 'react';
 
 const CardFooter: FC = () => {
   return (
-    <HStack m={2} flex={1} justifyContent={'space-around'}>
+    <HStack m={2} flex={1} justifyContent={'space-evenly'}>
       <Button variant={'solid'} colorScheme={'brand.primary'}>
         Buy Now
       </Button>

@@ -4,18 +4,14 @@ const resolvers = {
     getCategories: (_, __, { dataSources }) => {
       return dataSources.categoryAPI.getCategories();
     },
-    //returns the category of given id
-    // getCategoryById: (_, { id }, { dataSources }) => {
-    //   return dataSources.categoryAPI.getCategoryById(id);
-    // },
-    // getSubCategories: (_, __, { dataSources }) => {
-    //   return dataSources.subCategoryAPI.getSubCategories();
-    // },
     getSubCategoriesByParentId: (_, { parentId }, { dataSources }) => {
       return dataSources.subCategoryAPI.getSubCategoriesByParentId(parentId);
     },
     getProducts: (_, __, { dataSources }) => {
       return dataSources.productAPI.getProducts();
+    },
+    getProductBySlug: (_, { slug }, { dataSources }) => {
+      return dataSources.productAPI.getProductBySlug(slug);
     },
   },
   Product: {

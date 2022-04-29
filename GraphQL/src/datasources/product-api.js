@@ -9,6 +9,10 @@ class ProductAPI extends RESTDataSource {
   getProducts() {
     return this.get('/product').then(data => data.payload);
   }
+
+  getProductBySlug(slug) {
+    return this.get(`/product/${slug}`).then(data => data.payload);
+  }
 }
 
 module.exports = ProductAPI;

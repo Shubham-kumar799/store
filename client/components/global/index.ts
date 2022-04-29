@@ -10,3 +10,4 @@ export { default as AppCloseButton } from './AppCloseButton';
 export { default as NoData } from './NoData';
 export { default as ImageUpload } from './ImageUpload';
 export { default as Footer } from './Footer';
+export { default as CategoryBadge } from './CategoryBadge';

@@ -36,10 +36,25 @@ const list = async (_, res) => {
 
 const remove = async (req, res) => {
   try {
-    console.log('Id => ', req.params.id);
     await Product.findByIdAndDelete(req.params.id);
     res.status(201).json({
       success: true,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      payload: 'Internal server error',
+    });
+  }
+};
+
+const readBySlug = async (req, res) => {
+  try {
+    const product = await Product.findOne({ slug: req.params.slug });
+
+    res.status(201).json({
+      success: true,
+      payload: product,
     });
   } catch (error) {
     res.status(400).json({
@@ -53,4 +68,5 @@ module.exports = {
   create,
   list,
   remove,
+  readBySlug,
 };

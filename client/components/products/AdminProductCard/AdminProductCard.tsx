@@ -7,12 +7,12 @@ import {
   Divider,
   useColorModeValue,
 } from '@chakra-ui/react';
+import CardButtons from './CardButtons';
+import { CategoryBadge } from '@components/global';
 
 //types
 import { FC } from 'react';
 import { Product } from '@appTypes/products';
-import CardButtons from './CardButtons';
-import CategoryBadge from './CategoryBadge';
 
 interface Props {
   product: Product;
@@ -46,7 +46,7 @@ const AdminProductCard: FC<Props> = ({ product }) => {
         src={product.images[0].url}
       />
 
-      <Heading m={4} fontSize={'2xl'} fontFamily={'body'}>
+      <Heading isTruncated={true} m={4} fontSize={'2xl'} fontFamily={'body'}>
         {product.name}
       </Heading>
 

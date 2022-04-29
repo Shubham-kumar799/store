@@ -1,7 +1,7 @@
 const express = require('express');
 
 //controllers
-const { create, list, remove } = require('../controllers/product');
+const { create, list, remove, readBySlug } = require('../controllers/product');
 
 //middlewares
 const { authCheck, adminCheck } = require('../middlewares/auth');
@@ -14,6 +14,9 @@ router.post('/product', authCheck, adminCheck, create);
 
 //get all products
 router.get('/product', list);
+
+//get single product by slug
+router.get('/product/:slug', readBySlug);
 
 //delete a category
 router.post('/product/:id', authCheck, adminCheck, remove);

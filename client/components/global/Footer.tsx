@@ -19,6 +19,9 @@ import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
 // types
 import { FC, ReactNode } from 'react';
 
+//utils
+import { useRouter } from 'next/router';
+
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
     <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
@@ -60,6 +63,9 @@ const SocialButton = ({
 };
 
 const Footer: FC = () => {
+  const router = useRouter();
+  if (router.pathname !== '/') return null;
+
   return (
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}

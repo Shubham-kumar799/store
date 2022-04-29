@@ -8,6 +8,8 @@ const typeDefs = gql`
     getSubCategoriesByParentId(parentId: ID!): [SubCategory!]
     "Query to get all products"
     getProducts: [Product!]
+    "Query to get single product by its slug"
+    getProductBySlug(slug: String!): Product!
   }
 
   type Category {
