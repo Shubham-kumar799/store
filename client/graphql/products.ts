@@ -23,6 +23,7 @@ export const GET_PRODUCTS = gql`
       price
       quantity
       sold
+
       images {
         public_id
         url
@@ -56,6 +57,10 @@ export const GET_PRODUCT_BY_SLUG = gql`
       price
       quantity
       sold
+      ratings {
+        star
+        postedBy
+      }
       images {
         public_id
         url

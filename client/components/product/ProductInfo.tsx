@@ -9,9 +9,10 @@ import ProductInfoRight from './ProductInfoRight';
 
 interface Props {
   product: Product;
+  refetchProduct: any;
 }
 
-const ProductInfo: FC<Props> = ({ product }) => {
+const ProductInfo: FC<Props> = ({ product, refetchProduct }) => {
   const {
     name,
     quantity,
@@ -23,6 +24,8 @@ const ProductInfo: FC<Props> = ({ product }) => {
     price,
     sold,
     shipping,
+    ratings,
+    _id,
   } = product;
   return (
     <Box>
@@ -32,7 +35,13 @@ const ProductInfo: FC<Props> = ({ product }) => {
       <Text>{description}</Text>
 
       <Flex alignItems={'flex-start'} justifyContent={'space-between'}>
-        <ProductInfoLeft price={price} subCategories={subCategories} />
+        <ProductInfoLeft
+          refetchProduct={refetchProduct}
+          productId={_id}
+          rating={ratings}
+          price={price}
+          subCategories={subCategories}
+        />
         <ProductInfoRight
           brand={brand}
           category={category}

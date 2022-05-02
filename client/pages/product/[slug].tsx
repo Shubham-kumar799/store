@@ -19,7 +19,7 @@ const SingleProductView: NextPage = () => {
   useEffect(() => {
     path = window && window.location.href.split('/')[4];
   }, []);
-  const { data, loading } = useQuery(GET_PRODUCT_BY_SLUG, {
+  const { data, loading, refetch } = useQuery(GET_PRODUCT_BY_SLUG, {
     variables: { slug: slug || path },
   });
 
@@ -27,7 +27,7 @@ const SingleProductView: NextPage = () => {
 
   return (
     <Box>
-      <ProductView product={data?.getProductBySlug} />
+      <ProductView refetchProduct={refetch} product={data?.getProductBySlug} />
     </Box>
   );
 };

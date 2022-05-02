@@ -24,12 +24,14 @@ const ProductSlider: FC<Props> = ({ images }) => {
       renderThumbs={() => {
         const thumblist = images.map(i => (
           <img
+            key={i.public_id}
             style={{
               height: '80px',
               width: '80px',
               objectFit: 'contain',
             }}
             src={i.url}
+            id={i.public_id}
           />
         ));
 
@@ -42,6 +44,7 @@ const ProductSlider: FC<Props> = ({ images }) => {
             height: '600px',
             objectFit: 'cover',
           }}
+          key={i.public_id}
           id={i.public_id}
           src={i.url}
         />

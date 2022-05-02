@@ -12,7 +12,8 @@ import { GET_PRODUCTS } from '@graphql/products';
 import { Product } from '@appTypes/products';
 
 const HomeBody: FC = () => {
-  const { data, loading } = useQuery(GET_PRODUCTS);
+  const { data } = useQuery(GET_PRODUCTS);
+
   return (
     <Box>
       <Grid templateColumns="repeat(4, 1fr)">

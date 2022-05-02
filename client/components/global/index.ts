@@ -11,3 +11,4 @@ export { default as NoData } from './NoData';
 export { default as ImageUpload } from './ImageUpload';
 export { default as Footer } from './Footer';
 export { default as CategoryBadge } from './CategoryBadge';
+export { default as ProductRating } from './ProductRating';

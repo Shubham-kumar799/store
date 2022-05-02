@@ -38,6 +38,12 @@ const typeDefs = gql`
     public_id: String
     url: String
   }
+
+  type ProductRating {
+    star: Float!
+    postedBy: ID!
+  }
+
   type Product {
     "Mongo ID of the product"
     _id: ID!
@@ -66,6 +72,7 @@ const typeDefs = gql`
     "brand of the product"
     brand: String
     "Rating of the products"
+    ratings: [ProductRating]
     createdAt: String
     updatedAt: String
   }

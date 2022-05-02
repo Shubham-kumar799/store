@@ -15,7 +15,13 @@ export interface Product {
   shipping: boolean;
   category: Category;
   subCategories: SubCategory[];
+  ratings: ProductRatingType[];
   images: ProductImage[];
+}
+
+export interface ProductRatingType {
+  star: number;
+  postedBy: string;
 }
 
 export interface ProductImage {

@@ -66,24 +66,7 @@ const AdminSidebar: FC = ({ children }) => {
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box
-        css={{
-          '&::-webkit-scrollbar': {
-            width: '4px',
-          },
-          '&::-webkit-scrollbar-track': {
-            width: '6px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            background: '#8ccef0',
-            borderRadius: '24px',
-          },
-        }}
-        ml={{ base: 0, md: 60 }}
-        p="4"
-        overflow={'auto'}
-        maxH="90vh"
-      >
+      <Box ml={{ base: 0, md: 60 }} p="4" overflow={'auto'} maxH="80vh">
         {children}
       </Box>
     </Box>

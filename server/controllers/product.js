@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const slugify = require('slugify');
+const User = require('../models/user');
 
 const create = async (req, res) => {
   try {
@@ -64,9 +65,53 @@ const readBySlug = async (req, res) => {
   }
 };
 
+const postRating = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findById(productId);
+    const user = await User.findOne({ email: req.user.email });
+    const { userRating } = req.body;
+
+    let existingRating = product.ratings.find(
+      r => r.postedBy.toString() === user._id.toString()
+    );
+
+    if (existingRating) {
+      //update user rating
+      console.log('rating again');
+      await Product.updateOne(
+        { ratings: { $elemMatch: existingRating } },
+        { $set: { 'ratings.$.star': userRating } },
+        { new: true }
+      );
+    } else {
+      console.log('rating first time');
+      //if the user is rating the product for the first time
+      await Product.findByIdAndUpdate(
+        product._id,
+        {
+          $push: { ratings: { star: userRating, postedBy: user._id } },
+        },
+        { new: true }
+      );
+    }
+
+    res.status(201).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log('error in rating', error);
+    res.status(400).json({
+      success: false,
+      payload: 'Internal server error',
+    });
+  }
+};
+
 module.exports = {
   create,
   list,
   remove,
   readBySlug,
+  postRating,
 };

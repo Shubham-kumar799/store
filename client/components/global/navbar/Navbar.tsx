@@ -1,27 +1,18 @@
-import { FC } from 'react';
-
 //comopnents
-import {
-  Box,
-  Flex,
-  Stack,
-  IconButton,
-  Button,
-  useColorModeValue,
-  Portal,
-} from '@chakra-ui/react';
+import { Box, Flex, Stack, Button, useColorModeValue } from '@chakra-ui/react';
 import LogInAndSignUpButton from './LogInAndSignUpButton';
 import LogoutButton from './LogoutButton';
 import ToggleThemeButton from './ToggleThemeButton';
 import VerifyEmailButton from './VerifyEmailButton';
 import Image from 'next/image';
 
-//icon
-import { MdShoppingBasket } from 'react-icons/md';
+//types
+import { FC } from 'react';
 
 //utils
 import { useRouter } from 'next/router';
 import { useAppSelector, selectUser } from '@store';
+import CartButton from './CartButton';
 
 const Navbar: FC = () => {
   const user = useAppSelector(selectUser);
@@ -36,19 +27,19 @@ const Navbar: FC = () => {
 
   return (
     <Box bg={useColorModeValue('white', 'gray.800')} px={4}>
-      <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+      <Flex p={4} alignItems={'center'} justifyContent={'space-between'}>
         <Box>
           <Image
             onClick={() => router.push('/')}
             style={{ cursor: 'pointer' }}
             src={'/store.png'}
-            width="150"
-            height={'150'}
+            width="50"
+            height={'50'}
           />
         </Box>
 
-        <Flex alignItems={'center'}>
-          <Stack direction={'row'} spacing={7}>
+        <Flex>
+          <Stack direction={'row'} spacing={7} alignItems={'center'}>
             {user &&
               user.role === 'admin' &&
               !router.pathname.includes('/admin') && (
@@ -59,14 +50,7 @@ const Navbar: FC = () => {
                   To Admin Dashboard
                 </Button>
               )}
-            {user && (
-              <IconButton
-                variant={'ghost'}
-                colorScheme={'brand.tertiary'}
-                aria-label="Cart"
-                icon={<MdShoppingBasket />}
-              />
-            )}
+            {user && <CartButton />}
             {user && !user.emailVerified && <VerifyEmailButton />}
 
             <ToggleThemeButton />
