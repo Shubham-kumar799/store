@@ -18,6 +18,7 @@ const Products: NextPage = () => {
       <AddProductParent isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
 
       <ProductsHeader onOpen={onOpen} />
+
       <Divider />
       <AdminProducts />
     </Flex>

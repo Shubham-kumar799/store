@@ -1,7 +1,7 @@
 //utils
 import { useEffect, FC } from 'react';
 import { auth } from '@firebase';
-import { useAppDispatch, LOGIN, LOGOUT } from '@store';
+import { useAppDispatch, LOGIN, LOGOUT, SETCART } from '@store';
 import { useApi } from '@hooks';
 
 const SetUser: FC = ({ children }) => {
@@ -23,10 +23,11 @@ const SetUser: FC = ({ children }) => {
                   token,
                   emailVerified: user.emailVerified,
                   _id: data?.payload._id,
-                  cart: data?.payload.cart,
+                  // cart: data?.payload.cart,
                   role: data?.payload.role,
                 })
               );
+              dispatch(SETCART(data?.payload.cart));
             } else {
               dispatch(LOGOUT());
             }

@@ -14,30 +14,32 @@ import { CategoryBadge } from '@components/global';
 import { FC } from 'react';
 import { Product } from '@appTypes/products';
 import CardFooter from './CardFooter';
+import { useRouter } from 'next/router';
 
 interface Props {
   product: Product;
 }
 
 const ProductCard: FC<Props> = ({ product }) => {
+  const router = useRouter();
   return (
-    <Link href={`/product/${product.slug}`}>
-      <Box
-        transition="all .3s ease"
-        cursor={'pointer'}
-        m={6}
-        maxW={'320px'}
-        w={'full'}
-        bg={useColorModeValue('white', 'gray.800')}
-        boxShadow={'xl'}
-        _hover={{
-          boxShadow: 'dark-lg',
-        }}
-        rounded={'xl'}
-        p={0}
-        alignItems="center"
-        textAlign={'center'}
-      >
+    <Box
+      boxShadow={'xl'}
+      _hover={{
+        boxShadow: 'dark-lg',
+      }}
+      transition="all .3s ease"
+      cursor={'pointer'}
+      m={6}
+      maxW={'320px'}
+      w={'full'}
+      bg={useColorModeValue('white', 'gray.800')}
+      rounded={'xl'}
+      p={0}
+      alignItems="center"
+      textAlign={'center'}
+    >
+      <Box onClick={() => router.push(`/product/${product.slug}`)}>
         <Image
           alt="product-image"
           objectFit={'cover'}
@@ -65,12 +67,12 @@ const ProductCard: FC<Props> = ({ product }) => {
           </Box>
         </Flex>
 
-        <Divider mt={4} />
-        <Center mt={2} mb={2}>
-          <CardFooter />
-        </Center>
+        <Divider />
       </Box>
-    </Link>
+      <Center mt={2} mb={2}>
+        <CardFooter productId={product._id} />
+      </Center>
+    </Box>
   );
 };
 

@@ -15,7 +15,7 @@ interface Props {
 const ProductView: FC<Props> = ({ product, refetchProduct }) => {
   return (
     <Box m={4} p={4} bg={useColorModeValue('gray.100', 'gray.800')}>
-      <ProductSlider images={product.images} />;
+      <ProductSlider images={product.images} />
       <ProductInfo refetchProduct={refetchProduct} product={product} />
     </Box>
   );

@@ -5,11 +5,11 @@ import { RootState } from '@store/app/store';
 //types
 import { appUser } from 'appTypes/user';
 
-export interface CounterState {
+export interface UserState {
   user: null | appUser;
 }
 
-const initialState: CounterState = {
+const initialState: UserState = {
   user: null,
 };
 
