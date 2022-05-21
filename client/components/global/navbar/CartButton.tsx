@@ -9,11 +9,11 @@ import { FC } from 'react';
 
 //utils
 import { useRouter } from 'next/router';
-import { useAppSelector, selectCart } from '@store';
+import { useAppSelector, selectUser } from '@store';
 
 const CartButton: FC = () => {
   const router = useRouter();
-  const cart = useAppSelector(selectCart);
+  const user = useAppSelector(selectUser);
 
   return (
     <IconButton
@@ -29,7 +29,7 @@ const CartButton: FC = () => {
       icon={
         <>
           <MdShoppingBasket />
-          {cart.length !== 0 && (
+          {user?.cartCount !== 0 && (
             <Circle
               position={'absolute'}
               top={'-2px'}
@@ -41,7 +41,7 @@ const CartButton: FC = () => {
               pb={1}
               textColor={'white'}
             >
-              {cart.length}
+              {user?.cartCount}
             </Circle>
           )}
         </>

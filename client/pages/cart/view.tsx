@@ -1,9 +1,19 @@
+//utils
+import { useAppSelector, selectCart, selectUser } from '@store';
+
 //types
-import { NextPage } from "next"
+import { NextPage } from 'next';
 
 const View: NextPage = () => {
-  return null
-}
+  const cart = useAppSelector(selectCart);
+  const user = useAppSelector(selectUser);
+  return (
+    <>
+      {JSON.stringify(cart)}
+      <br />
+      {JSON.stringify(user)}
+    </>
+  );
+};
 
-
-export default View
+export default View;

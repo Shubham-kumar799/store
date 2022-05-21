@@ -12,12 +12,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: 'subscriber',
     },
-    cart: {
-      type: Array,
-      default: [],
+    cartCount: {
+      type: Number,
+      default: 0,
     },
     address: String,
-    // wishlist: [{ type: ObjectId, ref: 'Product' }],
   },
   { timestamps: true }
 );

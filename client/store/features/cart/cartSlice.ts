@@ -5,10 +5,12 @@ import { start } from 'repl';
 
 export interface CartState {
   cart: string[];
+  total: number;
 }
 
 const initialState: CartState = {
   cart: [],
+  total: 0,
 };
 
 const cartSlice = createSlice({
@@ -18,6 +20,9 @@ const cartSlice = createSlice({
   reducers: {
     SETCART: (state, { payload }) => {
       state.cart = payload;
+    },
+    SETTOTAL: (state, { payload }) => {
+      state.total = payload;
     },
     ADD_TO_CART: (state, { payload }) => {
       state.cart = [...state.cart, payload];
@@ -31,5 +36,6 @@ const cartSlice = createSlice({
 export const { SETCART, ADD_TO_CART, REMOVE_FROM_CART } = cartSlice.actions;
 
 export const selectCart = (state: RootState) => state.cart.cart;
+export const selectTotal = (state: RootState) => state.cart.total;
 
 export default cartSlice.reducer;

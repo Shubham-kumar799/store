@@ -23,11 +23,10 @@ const SetUser: FC = ({ children }) => {
                   token,
                   emailVerified: user.emailVerified,
                   _id: data?.payload._id,
-                  // cart: data?.payload.cart,
                   role: data?.payload.role,
+                  cartCount: data?.payload?.cartCount,
                 })
               );
-              dispatch(SETCART(data?.payload.cart));
             } else {
               dispatch(LOGOUT());
             }

@@ -4,4 +4,5 @@ export interface appUser {
   emailVerified: boolean;
   _id: string;
   role: string;
+  cartCount: number;
 }
