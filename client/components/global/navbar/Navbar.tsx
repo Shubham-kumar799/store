@@ -40,7 +40,7 @@ const Navbar: FC = () => {
 
         <Flex>
           <Stack direction={'row'} spacing={7} alignItems={'center'}>
-            {user &&
+            {user._id &&
               user.role === 'admin' &&
               !router.pathname.includes('/admin') && (
                 <Button
@@ -50,11 +50,11 @@ const Navbar: FC = () => {
                   To Admin Dashboard
                 </Button>
               )}
-            {user && <CartButton />}
-            {user && !user.emailVerified && <VerifyEmailButton />}
+            {user._id && <CartButton />}
+            {user._id && !user.emailVerified && <VerifyEmailButton />}
 
             <ToggleThemeButton />
-            {user ? <LogoutButton /> : <LogInAndSignUpButton />}
+            {user._id ? <LogoutButton /> : <LogInAndSignUpButton />}
           </Stack>
         </Flex>
       </Flex>

@@ -64,9 +64,18 @@ const remove = async (req, res) => {
   } catch (error) {}
 };
 
-const getCart = async (_, res) => {
+const getCart = async (req, res) => {
   try {
-    const userCart = await Cart.findOne({ owner: user._id });
+    const userCart = await Cart.findOne({
+      owner: req.params.userId,
+    }).populate({
+      path: 'products',
+      populate: {
+        path: 'product',
+        model: 'Product',
+      },
+    });
+
     res.status(200).json({
       success: true,
       payload: userCart,

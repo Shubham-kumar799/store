@@ -10,6 +10,21 @@ const typeDefs = gql`
     getProducts: [Product!]
     "Query to get single product by its slug"
     getProductBySlug(slug: String!): Product!
+    "Query to get user cart by user id"
+    getCartByUserId(userId: ID!): Cart
+  }
+
+  type CartProduct {
+    product: Product!
+    count: Int
+  }
+
+  type Cart {
+    products: [CartProduct!]
+    cartTotal: Int
+    owner: ID!
+    createdAt: String
+    updatedAt: String
   }
 
   type Category {

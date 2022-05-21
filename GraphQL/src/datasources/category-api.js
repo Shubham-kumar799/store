@@ -1,6 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
-class TrackAPI extends RESTDataSource {
+class CategoryAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = process.env.REST_API_BASEURL;
@@ -14,4 +14,4 @@ class TrackAPI extends RESTDataSource {
   }
 }
 
-module.exports = TrackAPI;
+module.exports = CategoryAPI;

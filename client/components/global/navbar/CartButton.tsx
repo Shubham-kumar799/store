@@ -17,7 +17,7 @@ const CartButton: FC = () => {
 
   return (
     <IconButton
-      onClick={() => router.push('/cart/view')}
+      onClick={() => router.push('/cart')}
       css={`
         position: relative !important;
       `}

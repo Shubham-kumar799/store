@@ -13,6 +13,9 @@ const resolvers = {
     getProductBySlug: (_, { slug }, { dataSources }) => {
       return dataSources.productAPI.getProductBySlug(slug);
     },
+    getCartByUserId: (_, { userId }, { dataSources }) => {
+      return dataSources.cartAPI.getCart(userId);
+    },
   },
   Product: {
     category: ({ category }, _, { dataSources }) => {

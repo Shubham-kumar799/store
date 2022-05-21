@@ -1,7 +1,7 @@
 const express = require('express');
 
 //controllers
-const { add, remove , getCart } = require('../controllers/cart');
+const { add, remove, getCart } = require('../controllers/cart');
 
 //middlewares
 const { authCheck } = require('../middlewares/auth');
@@ -11,7 +11,7 @@ const router = express.Router();
 //ROUTES
 
 //get user cart
-router.get('/cart' , authCheck , getCart)
+router.get('/cart/:userId', getCart);
 
 //add product to cart
 router.put('/cart/add/:productId', authCheck, add);
