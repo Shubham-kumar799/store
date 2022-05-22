@@ -1,7 +1,7 @@
 //components
 import { AppSpinner } from '@components/global';
 import { Box, Center, Flex } from '@chakra-ui/react';
-import { LeftCart, RightCart } from '@components/cart';
+import { LeftCart, RightCart, EmptyCart } from '@components/cart';
 
 //types
 import { NextPage } from 'next';
@@ -16,7 +16,10 @@ const View: NextPage = () => {
 
   const { data, loading } = useQuery(GET_CART_BY_USER_ID, {
     variables: { userId: user._id },
+    fetchPolicy: 'network-only',
   });
+
+  if (data) console.log('User CArt DAta', data.getCartByUserId);
 
   if (loading)
     return (
@@ -26,14 +29,23 @@ const View: NextPage = () => {
     );
 
   return (
-    <Flex>
-      <Box bgColor="red" flex="3">
-        <LeftCart />
-      </Box>
-      <Box bgColor="blue" flex="1">
-        <RightCart />
-      </Box>
-    </Flex>
+    <>
+      {data.getCartByUserId ? (
+        <Flex>
+          <Box bgColor="red" wordBreak={'break-word'} flex="3">
+            <LeftCart />
+          </Box>
+          <Box flex="1">
+            <RightCart
+              cartCount={data.getCartByUserId.products.length}
+              cartTotal={data.getCartByUserId.cartTotal}
+            />
+          </Box>
+        </Flex>
+      ) : (
+        <EmptyCart />
+      )}
+    </>
   );
 };
 
