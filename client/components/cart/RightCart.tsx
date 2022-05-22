@@ -1,6 +1,9 @@
 //components
 import { VStack, Text, Button, HStack } from '@chakra-ui/react';
 
+//icons
+import { BiRupee } from 'react-icons/bi';
+
 //types
 import { FC } from 'react';
 
@@ -26,7 +29,7 @@ const RightCart: FC<Props> = ({ cartCount, cartTotal }) => {
           Grand Total :
         </Text>
 
-        <Text fontSize={'xs'}>$</Text>
+        <BiRupee />
         <Text fontSize="lg" fontWeight={'bold'}>
           {cartTotal}
         </Text>

@@ -32,8 +32,8 @@ const View: NextPage = () => {
     <>
       {data.getCartByUserId ? (
         <Flex>
-          <Box bgColor="red" wordBreak={'break-word'} flex="3">
-            <LeftCart />
+          <Box wordBreak={'break-word'} flex="3">
+            <LeftCart cartProducts={data.getCartByUserId.products} />
           </Box>
           <Box flex="1">
             <RightCart

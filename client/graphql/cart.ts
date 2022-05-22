@@ -14,12 +14,10 @@ export const GET_CART_BY_USER_ID = gql`
           quantity
           images {
             url
+            public_id
           }
           shipping
           color
-          ratings {
-            star
-          }
           brand
         }
       }

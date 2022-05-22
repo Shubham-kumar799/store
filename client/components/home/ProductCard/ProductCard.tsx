@@ -6,9 +6,13 @@ import {
   Flex,
   Divider,
   useColorModeValue,
+  Text,
+  HStack,
 } from '@chakra-ui/react';
-import Link from 'next/link';
 import { CategoryBadge } from '@components/global';
+
+//icons
+import { BiRupee } from 'react-icons/bi';
 
 //types
 import { FC } from 'react';
@@ -68,6 +72,12 @@ const ProductCard: FC<Props> = ({ product }) => {
         </Flex>
 
         <Divider />
+        <HStack justifyContent={'center'}>
+          <BiRupee />
+          <Text fontSize="xl" fontWeight={'extrabold'}>
+            {product.price}
+          </Text>
+        </HStack>
       </Box>
       <Center mt={2} mb={2}>
         <CardFooter productId={product._id} />
