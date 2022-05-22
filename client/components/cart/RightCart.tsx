@@ -6,13 +6,23 @@ import { BiRupee } from 'react-icons/bi';
 
 //types
 import { FC } from 'react';
+import { useRouter } from 'next/router';
+import { CartProduct } from '@appTypes/cart';
 
 interface Props {
-  cartCount: Number;
-  cartTotal: Number;
+  cart: {
+    cartTotal: number;
+    products: [
+      {
+        product: CartProduct;
+        count: number;
+      }
+    ];
+  };
 }
 
-const RightCart: FC<Props> = ({ cartCount, cartTotal }) => {
+const RightCart: FC<Props> = ({ cart }) => {
+  const router = useRouter();
   return (
     <VStack shadow={'2xl'} p={4} borderWidth={4} m={4} rounded="xl">
       <Text fontSize="2xl" fontWeight={'bold'}>
@@ -22,7 +32,7 @@ const RightCart: FC<Props> = ({ cartCount, cartTotal }) => {
         <Text fontSize="lg" fontWeight={'bold'}>
           Number Of Items :
         </Text>
-        <Text fontSize="lg">{cartCount}</Text>
+        <Text fontSize="lg">{cart.products.length}</Text>
       </HStack>
       <HStack alignSelf={'flex-start'}>
         <Text fontSize="lg" fontWeight={'bold'}>
@@ -31,12 +41,21 @@ const RightCart: FC<Props> = ({ cartCount, cartTotal }) => {
 
         <BiRupee />
         <Text fontSize="lg" fontWeight={'bold'}>
-          {cartTotal}
+          {cart.cartTotal}
         </Text>
       </HStack>
 
-      <Button w="full" variant={'solid'} colorScheme={'brand.tertiary'}>
-        Proceed To Checkout
+      <Button
+        onClick={() =>
+          router.push({
+            pathname: '/checkout',
+          })
+        }
+        w="full"
+        variant={'solid'}
+        colorScheme={'brand.tertiary'}
+      >
+        PROCEED TO CHECKOUT
       </Button>
     </VStack>
   );

@@ -37,10 +37,7 @@ const View: NextPage = () => {
             />
           </Box>
           <Box flex="1">
-            <RightCart
-              cartCount={data.getCartByUserId.products.length}
-              cartTotal={data.getCartByUserId.cartTotal}
-            />
+            <RightCart cart={data.getCartByUserId} />
           </Box>
         </Flex>
       ) : (
