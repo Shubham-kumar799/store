@@ -20,6 +20,7 @@ const typeDefs = gql`
   }
 
   type Cart {
+    _id: ID!
     products: [CartProduct!]
     cartTotal: Int
     owner: ID!

@@ -14,11 +14,25 @@ import DeleteButton from './DeleteButton';
 import BuyNowButton from './BuyNowButton';
 
 interface Props {
+  cartId: string;
   count: number;
   product: CartProduct;
+  cartTotal: number;
+  cartProducts: [
+    {
+      count: number;
+      product: CartProduct;
+    }
+  ];
 }
 
-const CartProductCard: FC<Props> = ({ count, product }) => {
+const CartProductCard: FC<Props> = ({
+  cartProducts,
+  count,
+  cartTotal,
+  product,
+  cartId,
+}) => {
   return (
     <Grid
       position="relative"
@@ -30,7 +44,14 @@ const CartProductCard: FC<Props> = ({ count, product }) => {
       templateColumns="repeat(4, 1fr)"
       gap={'6'}
     >
-      <DeleteButton />
+      <DeleteButton
+        cartTotal={cartTotal}
+        productPrice={product.price}
+        productQuantity={count}
+        cartId={cartId}
+        productId={product._id}
+        cartProducts={cartProducts}
+      />
       <BuyNowButton />
       <GridItem>
         <Image
@@ -44,7 +65,14 @@ const CartProductCard: FC<Props> = ({ count, product }) => {
         <ProductInfo product={product} />
       </GridItem>
       <GridItem>
-        <QuantityButtons count={count} />
+        <QuantityButtons
+          cartId={cartId}
+          cartProducts={cartProducts}
+          cartTotal={cartTotal}
+          productPrice={product.price}
+          productId={product._id}
+          count={count}
+        />
       </GridItem>
       <GridItem>
         <HStack alignItems={'center'} justifyContent="center">

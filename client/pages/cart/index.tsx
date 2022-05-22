@@ -13,13 +13,10 @@ import { GET_CART_BY_USER_ID } from '@graphql/cart';
 
 const View: NextPage = () => {
   const user = useAppSelector(selectUser);
-
   const { data, loading } = useQuery(GET_CART_BY_USER_ID, {
     variables: { userId: user._id },
     fetchPolicy: 'network-only',
   });
-
-  if (data) console.log('User CArt DAta', data.getCartByUserId);
 
   if (loading)
     return (
@@ -30,10 +27,14 @@ const View: NextPage = () => {
 
   return (
     <>
-      {data.getCartByUserId ? (
+      {data.getCartByUserId && data.getCartByUserId.products.length !== 0 ? (
         <Flex>
           <Box wordBreak={'break-word'} flex="3">
-            <LeftCart cartProducts={data.getCartByUserId.products} />
+            <LeftCart
+              cartId={data.getCartByUserId._id}
+              cartProducts={data.getCartByUserId.products}
+              cartTotal={data.getCartByUserId.cartTotal}
+            />
           </Box>
           <Box flex="1">
             <RightCart

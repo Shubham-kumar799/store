@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_CART_BY_USER_ID = gql`
   query getCartByUserId($userId: ID!) {
     getCartByUserId(userId: $userId) {
+      _id
       products {
         count
         product {

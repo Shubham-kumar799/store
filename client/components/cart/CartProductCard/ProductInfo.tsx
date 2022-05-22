@@ -1,5 +1,5 @@
 //components
-import { Text, VStack, Tag } from '@chakra-ui/react';
+import { Text, VStack, Tag, Badge } from '@chakra-ui/react';
 
 //types
 import { CartProduct } from '@appTypes/cart';
@@ -18,7 +18,7 @@ const ProductInfo: FC<Props> = ({ product }) => {
       <Text maxW={'xs'} noOfLines={3}>
         {product.description}
       </Text>
-      <Tag color={product.color}>{product.color}</Tag>
+      <Badge color={product.color}>{product.color}</Badge>
       <Tag>{product.brand}</Tag>
     </VStack>
   );

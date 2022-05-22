@@ -33,3 +33,11 @@ export const mergeGetSubCategoriesByParentId = (
   });
   return merged;
 };
+
+export const mergeCartProducts = (_: any[], incoming: any) => {
+  if (!Array.isArray(incoming)) {
+    incoming = new Array(incoming);
+  }
+
+  return incoming;
+};
