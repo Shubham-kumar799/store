@@ -25,7 +25,6 @@ const Categories: NextPage = () => {
         title={'Create new category'}
         isOpen={isOpen}
         onClose={onClose}
-        onOpen={onOpen}
       >
         <AddCategoryForm
           formRef={formRef}

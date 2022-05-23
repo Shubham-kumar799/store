@@ -47,7 +47,7 @@ const AdminSidebar: FC = ({ children }) => {
   const router = useRouter();
   if (!router.pathname.includes('/admin')) return <>{children}</>;
   return (
-    <Box bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -66,7 +66,7 @@ const AdminSidebar: FC = ({ children }) => {
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4" overflow={'auto'} maxH="80vh">
+      <Box ml={{ base: 0, md: 64 }} overflow={'auto'}>
         {children}
       </Box>
     </Box>
@@ -80,7 +80,8 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
-      bg={useColorModeValue('white', 'gray.800')}
+      roundedTopRight="3xl"
+      bg={useColorModeValue('gray.100', 'gray.900')}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       {...rest}

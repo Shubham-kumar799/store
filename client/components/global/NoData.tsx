@@ -1,11 +1,9 @@
 //components
 import { Box, Heading, Text } from '@chakra-ui/react';
 
-//icons
-import { InfoIcon } from '@chakra-ui/icons';
-
 //types
 import { FC } from 'react';
+import Image from 'next/image';
 
 interface Props {
   heading?: string;
@@ -14,14 +12,24 @@ interface Props {
 
 const NoData: FC<Props> = ({ heading, text }) => {
   return (
-    <Box textAlign={'center'}>
-      <InfoIcon boxSize={'50px'} color={'blue.500'} />
+    <Box
+      display="flex"
+      flexDir={'column'}
+      alignItems={'center'}
+      textAlign={'center'}
+      p={4}
+    >
       {heading && (
         <Heading as="h2" size="xl" mt={6} mb={2}>
           {heading}
         </Heading>
       )}
-
+      <Image
+        src="/images/upload.png"
+        width={250}
+        height={250}
+        objectFit="contain"
+      />
       {text && <Text color={'gray.500'}>{text}</Text>}
     </Box>
   );
