@@ -5,4 +5,5 @@ export interface appUser {
   _id: string;
   role: string;
   cartCount: number;
+  address: string;
 }

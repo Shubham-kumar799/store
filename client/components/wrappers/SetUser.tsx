@@ -25,6 +25,7 @@ const SetUser: FC = ({ children }) => {
                   _id: data?.payload._id,
                   role: data?.payload.role,
                   cartCount: data?.payload?.cartCount,
+                  address: data?.payload?.address,
                 })
               );
             } else {

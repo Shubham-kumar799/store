@@ -30,7 +30,27 @@ const getUser = async (req, res) => {
   }
 };
 
+const saveAddress = async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { email: req.user.email },
+      {
+        address: req.body.address,
+      },
+      { new: true }
+    );
+    console.log('user with new address', user);
+    res.status(201).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log('error saving  user address => ', error);
+    res.status(400).json({ success: false });
+  }
+};
+
 module.exports = {
   createUser,
   getUser,
+  saveAddress,
 };
