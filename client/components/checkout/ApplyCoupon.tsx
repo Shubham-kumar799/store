@@ -26,6 +26,7 @@ const ApplyCoupon: FC = () => {
 
   const applyCoupon = async () => {
     try {
+      if (!coupon) return;
       setIsLoading(true);
       const data = await API({ body: { coupon } });
       toast({
@@ -59,7 +60,7 @@ const ApplyCoupon: FC = () => {
 
   return (
     <Flex wrap={'wrap'} p={4} m={2}>
-      <HStack justifyContent={'space-between'}>
+      <HStack w="full" justifyContent={'space-between'}>
         <HStack>
           <Text fontWeight={'bold'}>ADD COUPON</Text>
           <PinInput
@@ -81,6 +82,7 @@ const ApplyCoupon: FC = () => {
           isLoading={isLoading}
           onClick={applyCoupon}
           colorScheme={'brand.tertiary'}
+          variant="outline"
         >
           APPLY
         </Button>

@@ -19,6 +19,7 @@ import { CartProduct } from '@appTypes/cart';
 
 //utils
 import { useAppSelector, selectCouponInfo } from '@store';
+import { useRouter } from 'next/router';
 
 interface Props {
   grandTotal: number;
@@ -32,6 +33,7 @@ interface Props {
 
 const OrderSummary: FC<Props> = ({ grandTotal, products }) => {
   const couponInfo = useAppSelector(selectCouponInfo);
+  const router = useRouter();
 
   return (
     <VStack
@@ -67,7 +69,10 @@ const OrderSummary: FC<Props> = ({ grandTotal, products }) => {
       )}
 
       <Divider />
-      <Button w="full" colorScheme={'brand.tertiary'}>
+      <Button
+        onClick={() => router.push('/payment')}
+        colorScheme={'brand.tertiary'}
+      >
         Place Order
       </Button>
     </VStack>
