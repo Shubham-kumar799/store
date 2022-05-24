@@ -16,6 +16,9 @@ const resolvers = {
     getCartByUserId: (_, { userId }, { dataSources }) => {
       return dataSources.cartAPI.getCart(userId);
     },
+    getCoupons: (_, __, { dataSources }) => {
+      return dataSources.couponAPI.getCoupons();
+    },
   },
   Product: {
     category: ({ category }, _, { dataSources }) => {

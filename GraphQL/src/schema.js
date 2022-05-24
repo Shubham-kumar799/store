@@ -12,11 +12,22 @@ const typeDefs = gql`
     getProductBySlug(slug: String!): Product!
     "Query to get user cart by user id"
     getCartByUserId(userId: ID!): Cart
+    "Query to get all coupons"
+    getCoupons: [Coupon!]
   }
 
   type CartProduct {
     product: Product!
     count: Int
+  }
+
+  type Coupon {
+    _id: ID!
+    name: String
+    discount: Int
+    expiryDate: String
+    createdAt: String
+    updatedAt: String
   }
 
   type Cart {

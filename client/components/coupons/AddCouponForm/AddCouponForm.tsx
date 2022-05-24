@@ -1,39 +1,74 @@
 //components
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Input,
-  VStack,
-  useToast,
-  useColorMode,
-} from '@chakra-ui/react';
-import { Formik, Field, FormikProps } from 'formik';
+import { useToast, VStack } from '@chakra-ui/react';
+import { Formik, FormikProps } from 'formik';
 
 //types
-import { Dispatch, FC, RefObject } from 'react';
+import { FC, RefObject, Dispatch } from 'react';
+import { AddCouponFormValuesType } from '@appTypes/coupon';
 
 //utils
 import { couponSchema } from '@utils/couponSchema';
+import DiscountField from './DiscountField';
+import NameField from './NameField';
+import ExpiryDateField from './ExpiryDateField';
+import { useApi } from '@hooks';
+import { GET_COUPONS } from '@graphql/coupon';
+import { useApolloClient } from '@apollo/client';
 
 interface Props {
-  // formRef: RefObject<FormikProps<AddCategoryFormValuesType>>;
-  // setPositiveButtonLoading: Dispatch<boolean>;
+  formRef: RefObject<FormikProps<AddCouponFormValuesType>>;
+  setPositiveButtonLoading: Dispatch<boolean>;
 }
 
-const AddCouponForm: FC<Props> = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+const AddCouponForm: FC<Props> = ({ formRef, setPositiveButtonLoading }) => {
+  const [_, API] = useApi({ method: 'post', url: '/coupon' });
+  const toast = useToast();
+  const { cache } = useApolloClient();
 
-  const handleSubmit = async (values: { name: string }, resetForm: any) => {
-    console.log('coupon values', values);
+  const handleSubmit = async (
+    values: { name: string; discount: number; expiryDate: string },
+    resetForm: any
+  ) => {
+    try {
+      setPositiveButtonLoading(true);
+      const data = await API({
+        body: {
+          name: values.name,
+          expiryDate: new Date(values.expiryDate),
+          discount: values.discount,
+        },
+      });
+      cache.writeQuery({
+        query: GET_COUPONS,
+        data: {
+          getCoupons: {
+            __typename: 'Coupon',
+            // @ts-ignore
+            _id: data.payload._id,
+            name: values.name,
+            discount: values.discount,
+            expiryDate: values.expiryDate,
+          },
+        },
+      });
+    } catch (error) {
+      console.log('Error adding coupon', error);
+      toast({
+        status: 'error',
+        title: 'Error adding coupon',
+      });
+    } finally {
+      setPositiveButtonLoading(false);
+    }
   };
 
   return (
     <Formik
+      innerRef={formRef}
       validationSchema={couponSchema}
       initialValues={{
         name: '',
-        discount: '',
+        discount: 0,
         expiryDate: '',
       }}
       onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
@@ -41,38 +76,9 @@ const AddCouponForm: FC<Props> = () => {
       {({ handleSubmit, errors, touched }) => (
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align="flex-start">
-            <FormControl isInvalid={!!errors.name && touched.name}>
-              <FormLabel>Name</FormLabel>
-              <Field as={Input} id="name" name="name" />
-              <FormErrorMessage colorScheme={'brand.error'}>
-                {errors.name}
-              </FormErrorMessage>
-            </FormControl>
-            <FormControl isInvalid={!!errors.discount && touched.discount}>
-              <FormLabel>Discount</FormLabel>
-              <Field as={Input} id="discount" name="discount" />
-              <FormErrorMessage colorScheme={'brand.error'}>
-                {errors.discount}
-              </FormErrorMessage>
-            </FormControl>
-            <FormControl isInvalid={!!errors.expiryDate && touched.expiryDate}>
-              <FormLabel>Expiry Date</FormLabel>
-              <input
-                type={'date'}
-                style={{
-                  color: colorMode === 'light' ? 'black' : 'white',
-                  borderRadius: '4px',
-                  backgroundColor: colorMode === 'light' ? 'white' : '#2D3748',
-                  width: '100%',
-                  colorScheme: colorMode === 'light' ? 'light' : 'dark',
-                }}
-                id="expiryDate"
-                name="expiryDate"
-              />
-              <FormErrorMessage colorScheme={'brand.error'}>
-                {errors.expiryDate}
-              </FormErrorMessage>
-            </FormControl>
+            <NameField errors={errors} touched={touched} />
+            <DiscountField errors={errors} touched={touched} />
+            <ExpiryDateField errors={errors} touched={touched} />
           </VStack>
         </form>
       )}

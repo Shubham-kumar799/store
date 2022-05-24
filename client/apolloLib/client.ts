@@ -12,6 +12,7 @@ import {
   mergeGetProducts,
   mergeGetSubCategoriesByParentId,
   mergeCartProducts,
+  mergeGetCoupons,
 } from './utils';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
@@ -37,6 +38,9 @@ function createApolloClient() {
             },
             getProducts: {
               merge: mergeGetProducts,
+            },
+            getCoupons: {
+              merge: mergeGetCoupons,
             },
           },
         },

@@ -3,9 +3,10 @@ const Coupon = require('../models/coupon');
 const create = async (req, res) => {
   try {
     const { name, expiryDate, discount } = req.body;
-    await new Coupon({ name, expiryDate, discount }).save();
+    const coupon = await new Coupon({ name, expiryDate, discount }).save();
     res.status(201).json({
       success: true,
+      payload: coupon,
     });
   } catch (error) {
     console.log('error creating coupon', error);

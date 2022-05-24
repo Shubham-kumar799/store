@@ -8,6 +8,7 @@ const CategoryAPI = require('./src/datasources/category-api');
 const SubCategoryAPI = require('./src/datasources/subCategory-api');
 const ProductAPI = require('./src/datasources/product-api');
 const CartAPI = require('./src/datasources/cart-api');
+const CouponAPI = require('./src/datasources/coupon-api');
 
 const server = new ApolloServer({
   typeDefs,
@@ -18,6 +19,7 @@ const server = new ApolloServer({
       subCategoryAPI: new SubCategoryAPI(),
       productAPI: new ProductAPI(),
       cartAPI: new CartAPI(),
+      couponAPI: new CouponAPI(),
     };
   },
 });
