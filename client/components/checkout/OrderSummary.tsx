@@ -1,6 +1,5 @@
 //components
 import {
-  Box,
   Text,
   Center,
   Button,
@@ -8,6 +7,8 @@ import {
   HStack,
   VStack,
 } from '@chakra-ui/react';
+import ProductTable from './ProductTable';
+import { DiscountSlip } from '@components/global';
 
 //icons
 import { BiRupee } from 'react-icons/bi';
@@ -15,7 +16,9 @@ import { BiRupee } from 'react-icons/bi';
 //types
 import { FC } from 'react';
 import { CartProduct } from '@appTypes/cart';
-import ProductTable from './ProductTable';
+
+//utils
+import { useAppSelector, selectCouponInfo } from '@store';
 
 interface Props {
   grandTotal: number;
@@ -28,6 +31,8 @@ interface Props {
 }
 
 const OrderSummary: FC<Props> = ({ grandTotal, products }) => {
+  const couponInfo = useAppSelector(selectCouponInfo);
+
   return (
     <VStack
       spacing={4}
@@ -47,14 +52,19 @@ const OrderSummary: FC<Props> = ({ grandTotal, products }) => {
         Products
       </Text>
       <ProductTable products={products} />
-
-      <HStack>
-        <Text fontSize="lg" fontWeight={'bold'}>
-          Grand Total :
-        </Text>
-        <BiRupee />
-        <Text>{grandTotal}</Text>
-      </HStack>
+      {couponInfo.couponApplied ? (
+        <DiscountSlip />
+      ) : (
+        <HStack>
+          <Text fontSize="lg" fontWeight={'bold'}>
+            Grand Total :
+          </Text>
+          <BiRupee />
+          <Text fontSize="xl" fontWeight={'extrabold'}>
+            {grandTotal}
+          </Text>
+        </HStack>
+      )}
 
       <Divider />
       <Button w="full" colorScheme={'brand.tertiary'}>

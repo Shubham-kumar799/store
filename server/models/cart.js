@@ -13,6 +13,7 @@ const cartSchema = new mongoose.Schema(
       },
     ],
     cartTotal: Number,
+    cartTotalAfterDiscount: Number,
     owner: { type: ObjectId, ref: 'User' },
   },
   { timestamps: true }
