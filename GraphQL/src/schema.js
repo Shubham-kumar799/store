@@ -16,6 +16,8 @@ const typeDefs = gql`
     getCoupons: [Coupon!]
     "Query to get order by userId"
     getOrdersByUserId(userId: String!): [Order!]
+    "Query to get all orders"
+    getOrders: [Order!]
   }
 
   enum OrderStatus {

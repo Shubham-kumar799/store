@@ -9,6 +9,10 @@ class OrderAPI extends RESTDataSource {
   getOrdersByUserId(userId) {
     return this.get(`/orders/${userId}`).then(data => data.payload);
   }
+
+  getOrders() {
+    return this.get(`/orders`).then(data => data.payload);
+  }
 }
 
 module.exports = OrderAPI;

@@ -22,6 +22,9 @@ const resolvers = {
     getOrdersByUserId: (_, { userId }, { dataSources }) => {
       return dataSources.orderAPI.getOrdersByUserId(userId);
     },
+    getOrders: (_, __, { dataSources }) => {
+      return dataSources.orderAPI.getOrders();
+    },
   },
   Product: {
     category: ({ category }, _, { dataSources }) => {

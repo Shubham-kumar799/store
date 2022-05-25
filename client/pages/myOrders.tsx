@@ -1,5 +1,5 @@
 //components
-import { Box, Text, Center, Flex, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Text, Center, Grid } from '@chakra-ui/react';
 
 //types
 import { FC } from 'react';

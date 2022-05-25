@@ -35,7 +35,7 @@ const StripeCheckout: FC<Props> = ({ success, setSuccess }) => {
   });
   const [__, orderAPI] = useApi({
     method: 'post',
-    url: '/order',
+    url: '/orders',
   });
   const [___, cartAPI] = useApi({
     method: 'delete',

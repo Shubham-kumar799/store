@@ -54,7 +54,7 @@ const Navbar: FC = () => {
             !router.pathname.includes('/admin') && (
               <Button
                 rounded={'full'}
-                onClick={() => router.push('/admin/console')}
+                onClick={() => router.push('/admin/orders')}
               >
                 To Admin Dashboard
               </Button>

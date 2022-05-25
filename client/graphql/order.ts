@@ -37,3 +37,28 @@ export const GET_ORDERS_BY_USER_ID = gql`
     }
   }
 `;
+
+export const GET_ORDERS = gql`
+  query getOrders {
+    getOrders {
+      _id
+
+      orderedBy
+      createdAt
+      updatedAt
+      orderStatus
+      paymentIntent {
+        id
+        amount
+        status
+      }
+      products {
+        count
+        product {
+          _id
+          price
+        }
+      }
+    }
+  }
+`;

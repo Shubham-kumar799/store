@@ -18,8 +18,8 @@ import {
 import { FiSettings, FiMenu } from 'react-icons/fi';
 import { TiTicket } from 'react-icons/ti';
 import { BiCategoryAlt } from 'react-icons/bi';
-import { MdAdminPanelSettings } from 'react-icons/md';
 import { SiSmartthings } from 'react-icons/si';
+import { MdAddShoppingCart } from 'react-icons/md';
 
 //types
 import { FC } from 'react';
@@ -35,11 +35,11 @@ interface LinkItemProps {
   href: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'CONSOLE', icon: MdAdminPanelSettings, href: '/admin/console' },
+  // { name: 'CONSOLE', icon: MdAdminPanelSettings, href: '/admin/console' },
+  { name: 'ORDERS', icon: MdAddShoppingCart, href: '/admin/orders' },
   { name: 'PRODUCTS', icon: SiSmartthings, href: '/admin/products' },
   { name: 'CATEGORIES', icon: BiCategoryAlt, href: '/admin/categories' },
   { name: 'COUPONS', icon: TiTicket, href: '/admin/coupons' },
-  // { name: 'SETTINGS', icon: FiSettings, href: '/admin/settings' },
 ];
 
 const AdminSidebar: FC = ({ children }) => {

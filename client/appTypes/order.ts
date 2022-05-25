@@ -35,3 +35,26 @@ interface PaymentIntent {
   status: string;
   payment_method_types: [string];
 }
+
+export interface Order {
+  _id: string;
+
+  orderedBy: string;
+  createdAt: string;
+  updatedAt: string;
+  products: [
+    {
+      product: {
+        _id: string;
+        price: number
+      };
+      count: number;
+    }
+  ];
+  orderStatus: OrderStatus;
+  paymentIntent: {
+    id: string;
+    amount: number;
+    status: string;
+  };
+}

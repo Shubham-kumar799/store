@@ -57,23 +57,36 @@ const read = async (req, res) => {
     });
   }
 };
-// const create = async (req, res) => {
-//   try {
+const readAll = async (req, res) => {
+  try {
+    const orders = await Order.find({})
+      .sort('-createdAt')
+      .populate('products.product');
+    res.status(200).json({
+      success: true,
+      payload: orders,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+    });
+  }
+};
+const updateStatus = async (req, res) => {
+  try {
+    const { orderStatus } = req.body;
+    await Order.findByIdAndUpdate(req.params.orderId, {
+      orderStatus,
+    });
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log('error updating status of order', error);
+    res.status(400).json({
+      success: false,
+    });
+  }
+};
 
-//   } catch (error) {
-//     res.status(400).json({
-//       success: false,
-//     })
-//   }
-// }
-// const create = async (req, res) => {
-//   try {
-
-//   } catch (error) {
-//     res.status(400).json({
-//       success: false,
-//     })
-//   }
-// }
-
-module.exports = { create, read };
+module.exports = { create, read, readAll, updateStatus };
