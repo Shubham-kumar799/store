@@ -13,3 +13,5 @@ export { default as Footer } from './Footer';
 export { default as CategoryBadge } from './CategoryBadge';
 export { default as ProductRating } from './ProductRating';
 export { default as DiscountSlip } from './DiscountSlip';
+export { default as AppLoading } from './AppLoading';
+export { default as RunLottieAnimation } from './RunLottieAnimation';

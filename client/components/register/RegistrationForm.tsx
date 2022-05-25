@@ -22,11 +22,13 @@ import {
   signOut,
 } from 'firebase/auth';
 import { useApi } from '@hooks';
+import { LOGIN, useAppDispatch } from '@store';
 
 const RegistrationForm: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const [_, API] = useApi({ url: '/create-user', method: 'Post' });
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (
     values: { password: string; email: string },
@@ -34,20 +36,35 @@ const RegistrationForm: FC = () => {
   ) => {
     try {
       setIsLoading(true);
+      //creating user with firebase
       const { user } = await createUserWithEmailAndPassword(
         auth,
         values.email,
         values.password
       );
       const token = await user.getIdToken();
+
+      //creating user and saving in database
       const headers = { auth_token: token };
       await API({ headers })
-        .then(() => {
+        .then((data: any) => {
           toast({
             status: 'success',
             title: 'Registration Successful',
             position: 'top-right',
           });
+
+          dispatch(
+            LOGIN({
+              email: user.email!,
+              token,
+              emailVerified: user.emailVerified,
+              _id: data?.payload._id,
+              role: data?.payload.role,
+              cartCount: data?.payload?.cartCount,
+              address: data?.payload?.address,
+            })
+          );
         })
         .catch(async () => {
           await deleteUser(auth.currentUser!);

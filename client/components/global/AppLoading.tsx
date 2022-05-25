@@ -3,8 +3,9 @@ import { FC } from 'react';
 import type { LottiePlayer } from 'lottie-web';
 //utils
 import { useEffect, useRef, useState } from 'react';
+import { VStack } from '@chakra-ui/react';
 
-export const PaymentSuccessfulAnimation: FC = () => {
+export const AppLoading: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [lottie, setLottie] = useState<LottiePlayer | null>(null);
 
@@ -17,17 +18,22 @@ export const PaymentSuccessfulAnimation: FC = () => {
       const animation = lottie.loadAnimation({
         container: ref.current,
         renderer: 'svg',
-        loop: false,
+        loop: true,
         autoplay: true,
         // path to your animation file, place it inside public folder
-        path: '/animation/paymentSuccessful.json',
+        path: '/animation/loading.json',
       });
 
       return () => animation.destroy();
     }
   }, [lottie]);
 
-  return <div ref={ref} />;
+  return (
+    <VStack>
+      {' '}
+      <div ref={ref} />
+    </VStack>
+  );
 };
 
-export default PaymentSuccessfulAnimation;
+export default AppLoading;

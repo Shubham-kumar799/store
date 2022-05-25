@@ -1,16 +1,21 @@
+//components
+import { AppLoading } from '@components/global';
+
 //utils
-import { useEffect, FC } from 'react';
+import { useEffect, FC, useState } from 'react';
 import { auth } from '@firebase';
-import { useAppDispatch, LOGIN, LOGOUT, SETCART } from '@store';
+import { useAppDispatch, LOGIN, LOGOUT } from '@store';
 import { useApi } from '@hooks';
 
 const SetUser: FC = ({ children }) => {
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [_, API] = useApi({ url: '/user', method: 'get' });
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async user => {
       try {
+        setIsLoading(true);
         if (user) {
           const token = await user.getIdToken();
 
@@ -38,11 +43,17 @@ const SetUser: FC = ({ children }) => {
       } catch (error) {
         console.log('error in setting user', error);
         dispatch(LOGOUT());
+      } finally {
+        setIsLoading(false);
       }
     });
 
     return () => unsubscribe();
   }, []);
+
+  if (isLoading) {
+    return <AppLoading />;
+  }
 
   return <>{children}</>;
 };
