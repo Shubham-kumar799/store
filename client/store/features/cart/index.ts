@@ -1,5 +1,6 @@
 export {
   SETCART,
+  SET_TOTAL,
   selectCart,
   selectTotal,
   ADD_TO_CART,

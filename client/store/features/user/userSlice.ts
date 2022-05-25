@@ -34,6 +34,9 @@ const userSlice = createSlice({
     DECREMENT_USER_CART_COUNT: state => {
       state.user.cartCount = state.user.cartCount - 1;
     },
+    SET_USER_CART_COUNT: (state, { payload }) => {
+      state.user.cartCount = payload;
+    },
     SET_USER_ADDRESS: (state, { payload }) => {
       state.user.address = payload;
     },
@@ -52,6 +55,7 @@ export const {
   INCREMENT_USER_CART_COUNT,
   DECREMENT_USER_CART_COUNT,
   SET_USER_ADDRESS,
+  SET_USER_CART_COUNT,
 } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user.user;

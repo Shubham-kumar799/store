@@ -10,7 +10,15 @@ import { StripeCardElementChangeEvent } from '@stripe/stripe-js';
 //utils
 import { useEffect, useState } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
-import { useAppSelector, selectCouponInfo } from '@store';
+import {
+  useAppSelector,
+  selectCouponInfo,
+  SETCART,
+  SET_TOTAL,
+  useAppDispatch,
+  SET_COUPON,
+  SET_USER_CART_COUNT,
+} from '@store';
 import { useApi } from '@hooks';
 
 interface Props {
@@ -25,6 +33,15 @@ const StripeCheckout: FC<Props> = ({ success, setSuccess }) => {
     method: 'post',
     url: '/payment/create-payment-intent',
   });
+  const [__, orderAPI] = useApi({
+    method: 'post',
+    url: '/order',
+  });
+  const [___, cartAPI] = useApi({
+    method: 'delete',
+    url: '/cart',
+  });
+  const dispatch = useAppDispatch();
   const [clientSecret, setClientSecret] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -33,6 +50,11 @@ const StripeCheckout: FC<Props> = ({ success, setSuccess }) => {
   const couponInfo = useAppSelector(selectCouponInfo);
 
   useEffect(() => {
+    setIsLoading(false);
+    setDisabled(false);
+    setSuccess(false);
+    setError('');
+    setClientSecret('');
     const createPaymentIntent = async () => {
       const data = await API({
         body: { couponApplied: couponInfo.couponApplied },
@@ -61,11 +83,30 @@ const StripeCheckout: FC<Props> = ({ success, setSuccess }) => {
     if (payload?.error) {
       setError(`Payment failed ${payload.error.message}`);
     } else {
-      setSuccess(true);
-      setError('');
       //create order and save in database
+
+      await orderAPI({
+        body: {
+          stripeResponse: payload?.paymentIntent,
+        },
+      });
+      await cartAPI({});
+
+      dispatch(SETCART([]));
+      dispatch(SET_TOTAL(0));
+      dispatch(
+        SET_COUPON({
+          couponApplied: false,
+          couponName: '',
+          discountedPrice: 0,
+          originalPrice: 0,
+        })
+      );
     }
+    dispatch(SET_USER_CART_COUNT(0));
+    setError('');
     setIsLoading(false);
+    setSuccess(true);
   };
 
   const handleChange = async (e: StripeCardElementChangeEvent) => {

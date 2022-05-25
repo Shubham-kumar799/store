@@ -7,6 +7,7 @@ const {
   getCart,
   increment,
   decrement,
+  deleteCart,
 } = require('../controllers/cart');
 
 //middlewares
@@ -18,6 +19,9 @@ const router = express.Router();
 
 //get user cart
 router.get('/cart/:userId', getCart);
+
+//delete user cart
+router.delete('/cart', authCheck, deleteCart);
 
 //add product to cart
 router.put('/cart/add/:productId', authCheck, add);

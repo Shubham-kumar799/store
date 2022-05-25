@@ -41,7 +41,7 @@ const ProductTable: FC<Props> = ({ products }) => {
         </Thead>
         <Tbody>
           {products.map((p, index) => (
-            <Tr>
+            <Tr key={index}>
               <Td>{index + 1}</Td>
               <Td isTruncated={true} maxWidth={'xs'}>
                 {p.product.name}

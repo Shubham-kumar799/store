@@ -21,7 +21,7 @@ const cartSlice = createSlice({
     SETCART: (state, { payload }) => {
       state.cart = payload;
     },
-    SETTOTAL: (state, { payload }) => {
+    SET_TOTAL: (state, { payload }) => {
       state.total = payload;
     },
     ADD_TO_CART: (state, { payload }) => {
@@ -33,7 +33,8 @@ const cartSlice = createSlice({
   },
 });
 
-export const { SETCART, ADD_TO_CART, REMOVE_FROM_CART } = cartSlice.actions;
+export const { SET_TOTAL, SETCART, ADD_TO_CART, REMOVE_FROM_CART } =
+  cartSlice.actions;
 
 export const selectCart = (state: RootState) => state.cart.cart;
 export const selectTotal = (state: RootState) => state.cart.total;

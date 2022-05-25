@@ -188,4 +188,23 @@ const decrement = async (req, res) => {
   }
 };
 
-module.exports = { add, remove, getCart, increment, decrement };
+const deleteCart = async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { email: req.user.email },
+      {
+        cartCount: 0,
+      },
+      { new: true }
+    );
+    await Cart.findOneAndRemove({ owner: user._id });
+    res.status(201).json({ success: true });
+  } catch (error) {
+    console.log('error deleting', error);
+    res.status(400).json({
+      success: false,
+    });
+  }
+};
+
+module.exports = { deleteCart, add, remove, getCart, increment, decrement };
