@@ -1,12 +1,18 @@
 //components
-import { Box, HStack, Badge, Text, Divider } from '@chakra-ui/react';
+import { Box, HStack, Badge, Text, Divider, Button } from '@chakra-ui/react';
 import OrderTable from './OrderTable';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+
+//icons
+import { BiRupee } from 'react-icons/bi';
 
 //types
 import { FC } from 'react';
 import { MyOrder } from '@appTypes/order';
-import Image from 'next/image';
-import { BiRupee } from 'react-icons/bi';
+
+//utils
+import { useRef } from 'react';
+import Invoice from './Invoice';
 
 interface Props {
   order: MyOrder;
@@ -21,6 +27,22 @@ const badgeColors = {
 };
 
 const OrderCard: FC<Props> = ({ order }) => {
+  //@ts-ignore
+  const downloadRef = useRef(null);
+  const PdfDownload = () => {
+    return (
+      <PDFDownloadLink
+        ref={downloadRef}
+        document={<Invoice order={order} />}
+        fileName="invoice.pdf"
+      >
+        <Button variant={'link'} colorScheme="brand.primary">
+          Download invoice
+        </Button>
+      </PDFDownloadLink>
+    );
+  };
+
   return (
     <Box borderWidth={2} m={4} rounded="xl">
       <HStack m={4} justifyContent={'space-between'}>
@@ -35,10 +57,13 @@ const OrderCard: FC<Props> = ({ order }) => {
       </HStack>
       <Divider />
       <OrderTable productInfo={order.products} />
-      <HStack p={4}>
-        <Text>Amount Paid : </Text>
-        <BiRupee />
-        <Text fontWeight={'bold'}>{order.paymentIntent.amount / 100}</Text>
+      <HStack justifyContent={'space-between'} p={4}>
+        <HStack>
+          <Text>Amount Paid : </Text>
+          <BiRupee />
+          <Text fontWeight={'bold'}>{order.paymentIntent.amount / 100}</Text>
+        </HStack>
+        <PdfDownload />
       </HStack>
     </Box>
   );

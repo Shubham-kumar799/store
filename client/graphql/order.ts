@@ -5,6 +5,7 @@ export const GET_ORDERS_BY_USER_ID = gql`
     getOrdersByUserId(userId: $userId) {
       _id
       orderedBy
+      createdAt
       paymentIntent {
         id
         object
