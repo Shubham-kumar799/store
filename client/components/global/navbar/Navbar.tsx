@@ -59,6 +59,15 @@ const Navbar: FC = () => {
                 To Admin Dashboard
               </Button>
             )}
+          {user._id && (
+            <Button
+              variant={'outline'}
+              colorScheme={'brand.tertiary'}
+              onClick={() => router.push('/myOrders')}
+            >
+              My Orders
+            </Button>
+          )}
           {user._id && <CartButton />}
           {user._id && !user.emailVerified && <VerifyEmailButton />}
 

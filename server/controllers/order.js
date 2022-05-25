@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Order = require('../models/order');
 const Cart = require('../models/cart');
+const Product = require('../models/product');
 
 const create = async (req, res) => {
   try {
@@ -13,6 +14,21 @@ const create = async (req, res) => {
       orderedBy: user._id,
     }).save();
 
+    //YOY HAVEN'T TESTED THIS
+    //decrement quantity of products in database
+    const blukOption = products.map(item => {
+      return {
+        updateOne: {
+          filter: { _id: item.product._id },
+          update: {
+            $inc: { quantity: -item.count, sold: item.count },
+          },
+        },
+      };
+    });
+
+    await Product.bulkWrite(blukOption);
+
     res.status(200).json({
       success: true,
     });
@@ -24,6 +40,23 @@ const create = async (req, res) => {
   }
 };
 
+const read = async (req, res) => {
+  try {
+    const orders = await Order.find({ orderedBy: req.params.userId }).populate(
+      'products.product'
+    );
+
+    res.status(200).json({
+      success: true,
+      payload: orders,
+    });
+  } catch (error) {
+    console.log('error reading order', error);
+    res.status(400).json({
+      success: false,
+    });
+  }
+};
 // const create = async (req, res) => {
 //   try {
 
@@ -42,14 +75,5 @@ const create = async (req, res) => {
 //     })
 //   }
 // }
-// const create = async (req, res) => {
-//   try {
 
-//   } catch (error) {
-//     res.status(400).json({
-//       success: false,
-//     })
-//   }
-// }
-
-module.exports = { create };
+module.exports = { create, read };

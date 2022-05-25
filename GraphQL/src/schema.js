@@ -14,11 +14,44 @@ const typeDefs = gql`
     getCartByUserId(userId: ID!): Cart
     "Query to get all coupons"
     getCoupons: [Coupon!]
+    "Query to get order by userId"
+    getOrdersByUserId(userId: String!): [Order!]
+  }
+
+  enum OrderStatus {
+    Not_Processed
+    Fulfilled
+    Processing
+    Out_For_Delivery
+    Cancelled
   }
 
   type CartProduct {
     product: Product!
     count: Int
+  }
+
+  type PaymentIntent {
+    id: ID!
+    object: String!
+    amount: Int!
+    capture_method: String!
+    client_secret: String!
+    currency: String!
+    livemode: Boolean
+    payment_method: String!
+    status: String!
+    payment_method_types: [String!]
+  }
+
+  type Order {
+    _id: ID!
+    orderedBy: ID!
+    createdAt: String
+    updatedAt: String
+    products: [CartProduct!]
+    orderStatus: OrderStatus!
+    paymentIntent: PaymentIntent
   }
 
   type Coupon {

@@ -17,10 +17,10 @@ const orderSchema = new mongoose.Schema(
       type: String,
       default: 'Not Processed',
       enum: [
-        'Not Processed',
+        'Not_Processed',
         'Fulfilled',
         'Processing',
-        'Out For Delivery',
+        'Out_For_Delivery',
         'Cancelled',
       ],
     },

@@ -39,7 +39,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'PRODUCTS', icon: SiSmartthings, href: '/admin/products' },
   { name: 'CATEGORIES', icon: BiCategoryAlt, href: '/admin/categories' },
   { name: 'COUPONS', icon: TiTicket, href: '/admin/coupons' },
-  { name: 'SETTINGS', icon: FiSettings, href: '/admin/settings' },
+  // { name: 'SETTINGS', icon: FiSettings, href: '/admin/settings' },
 ];
 
 const AdminSidebar: FC = ({ children }) => {
