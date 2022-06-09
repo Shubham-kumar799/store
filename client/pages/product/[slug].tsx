@@ -1,5 +1,6 @@
 //components
 import { ProductView } from '@components/product';
+import { BaseLayout } from '@components/global';
 
 //types
 import { NextPage } from 'next';
@@ -26,9 +27,14 @@ const SingleProductView: NextPage = () => {
   if (loading) return <AppSpinner />;
 
   return (
-    <Box>
-      <ProductView refetchProduct={refetch} product={data?.getProductBySlug} />
-    </Box>
+    <BaseLayout nostyles>
+      <Box>
+        <ProductView
+          refetchProduct={refetch}
+          product={data?.getProductBySlug}
+        />
+      </Box>
+    </BaseLayout>
   );
 };
 

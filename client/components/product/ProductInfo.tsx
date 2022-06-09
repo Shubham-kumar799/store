@@ -32,9 +32,13 @@ const ProductInfo: FC<Props> = ({ product, refetchProduct }) => {
       <Center m={2} mt={0}>
         <Heading>{name}</Heading>
       </Center>
-      <Text>{description}</Text>
+      <Text textAlign={{ base: 'center', md: 'start' }}>{description}</Text>
 
-      <Flex alignItems={'flex-start'} justifyContent={'space-between'}>
+      <Flex
+        alignItems={'center'}
+        flexDir={{ base: 'column', md: 'row' }}
+        justifyContent="center"
+      >
         <ProductInfoLeft
           refetchProduct={refetchProduct}
           productId={_id}

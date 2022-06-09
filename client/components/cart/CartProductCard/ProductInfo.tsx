@@ -11,8 +11,8 @@ interface Props {
 
 const ProductInfo: FC<Props> = ({ product }) => {
   return (
-    <VStack alignItems={'flex-start'}>
-      <Text fontSize={'2xl'} fontWeight="bold">
+    <VStack>
+      <Text isTruncated={true} width="xs" fontSize={'2xl'} fontWeight="bold">
         {product.name}
       </Text>
       <Text maxW={'xs'} noOfLines={3}>

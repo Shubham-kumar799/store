@@ -24,7 +24,15 @@ interface Props {
 const RightCart: FC<Props> = ({ cart }) => {
   const router = useRouter();
   return (
-    <VStack shadow={'2xl'} p={4} borderWidth={4} m={4} rounded="xl">
+    <VStack
+      flex={1}
+      maxW={'md'}
+      shadow={'2xl'}
+      p={4}
+      borderWidth={4}
+      m={4}
+      rounded="xl"
+    >
       <Text fontSize="2xl" fontWeight={'bold'}>
         Cart Summary
       </Text>

@@ -1,6 +1,6 @@
 //components
 import { ProductCard } from './ProductCard';
-import { Box, Grid, GridItem, Center } from '@chakra-ui/react';
+import { Box, Center, Flex } from '@chakra-ui/react';
 import Slider from './Slider';
 
 //types
@@ -24,13 +24,11 @@ const HomeBody: FC = () => {
 
   return (
     <Box>
-      <Grid templateColumns="repeat(4, 1fr)">
+      <Flex flexWrap={'wrap'} justifyContent="space-evenly">
         {data?.getProducts.map((product: Product) => (
-          <GridItem key={product._id}>
-            <ProductCard product={product} />
-          </GridItem>
+          <ProductCard key={product._id} product={product} />
         ))}
-      </Grid>
+      </Flex>
       <Slider />
     </Box>
   );

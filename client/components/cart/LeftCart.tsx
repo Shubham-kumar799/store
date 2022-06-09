@@ -1,6 +1,6 @@
 //components
 import { CartProductCard } from './CartProductCard';
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 //types
 import { FC } from 'react';
@@ -19,7 +19,7 @@ interface Props {
 
 const LeftCart: FC<Props> = ({ cartTotal, cartProducts, cartId }) => {
   return (
-    <Box>
+    <Flex p={2} flexWrap={'wrap'} justifyContent={'center'}>
       {cartProducts.map(productData => (
         <CartProductCard
           cartProducts={cartProducts}
@@ -30,7 +30,7 @@ const LeftCart: FC<Props> = ({ cartTotal, cartProducts, cartId }) => {
           cartId={cartId}
         />
       ))}
-    </Box>
+    </Flex>
   );
 };
 

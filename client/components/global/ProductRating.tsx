@@ -58,7 +58,7 @@ const ProductRating: FC<Props> = ({
   };
 
   return (
-    <HStack>
+    <HStack justifyContent={{ base: 'center', md: 'flex-start' }}>
       <Rating
         readonly={readOnly}
         onChange={handleChange}

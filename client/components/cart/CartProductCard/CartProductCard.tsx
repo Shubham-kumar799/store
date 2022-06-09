@@ -1,5 +1,5 @@
 //components
-import { HStack, Text, Grid, GridItem } from '@chakra-ui/react';
+import { HStack, Text, Box, Flex, Divider, VStack } from '@chakra-ui/react';
 import Image from 'next/image';
 import QuantityButtons from './QuantityButtons';
 import ProductInfo from './ProductInfo';
@@ -34,15 +34,13 @@ const CartProductCard: FC<Props> = ({
   cartId,
 }) => {
   return (
-    <Grid
-      position="relative"
-      borderWidth={2}
-      rounded="2xl"
-      p={4}
+    <Flex
+      rounded="xl"
       m={2}
-      alignItems="center"
-      templateColumns="repeat(4, 1fr)"
-      gap={'6'}
+      flex={1}
+      borderWidth={2}
+      flexDir="column"
+      position="relative"
     >
       <DeleteButton
         cartTotal={cartTotal}
@@ -52,19 +50,19 @@ const CartProductCard: FC<Props> = ({
         productId={product._id}
         cartProducts={cartProducts}
       />
-      <BuyNowButton />
-      <GridItem>
-        <Image
-          objectFit="contain"
-          src={product.images[0].url}
-          height={200}
-          width={200}
-        />
-      </GridItem>
-      <GridItem>
+      {/* <BuyNowButton /> */}
+      <Image
+        objectFit="cover"
+        src={product.images[0].url}
+        height={250}
+        width={200}
+        style={{
+          borderTopLeftRadius: '0.75rem',
+          borderTopRightRadius: '0.75rem',
+        }}
+      />
+      <VStack p={4} textAlign="center" spacing={4}>
         <ProductInfo product={product} />
-      </GridItem>
-      <GridItem>
         <QuantityButtons
           cartId={cartId}
           cartProducts={cartProducts}
@@ -73,16 +71,15 @@ const CartProductCard: FC<Props> = ({
           productId={product._id}
           count={count}
         />
-      </GridItem>
-      <GridItem>
+        <Divider my={2} />
         <HStack alignItems={'center'} justifyContent="center">
           <BiRupee />
           <Text fontWeight={'extrabold'} fontSize="2xl">
             {product.price}
           </Text>
         </HStack>
-      </GridItem>
-    </Grid>
+      </VStack>
+    </Flex>
   );
 };
 

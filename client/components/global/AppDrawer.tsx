@@ -9,6 +9,7 @@ import {
   DrawerFooter,
 } from '@chakra-ui/react';
 import { AppCloseButton } from '.';
+import ToggleThemeButton from './navbar/ToggleThemeButton';
 
 //types
 import { FC } from 'react';
@@ -20,7 +21,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   placement?: string;
-  title: string;
+  title?: string;
   positiveButtonTitle?: string;
   positiveButtonFunction?: () => void;
   positiveButtonLoading?: boolean;
@@ -32,6 +33,8 @@ interface Props {
   noPadding?: boolean;
   negativeButtonFunction?: () => void;
   positiveButtonDisabled?: boolean;
+  closeOnOverlayClick?: boolean;
+  themeControl?: boolean;
 }
 
 const AppDrawer: FC<Props> = ({
@@ -51,13 +54,15 @@ const AppDrawer: FC<Props> = ({
   noPadding = false,
   negativeButtonFunction,
   positiveButtonDisabled = false,
+  closeOnOverlayClick = false,
+  themeControl = false,
 }) => {
   const firstField = useRef(null);
 
   return (
     <Drawer
       isOpen={isOpen}
-      closeOnOverlayClick={false}
+      closeOnOverlayClick={closeOnOverlayClick}
       size={size ? size : 'xs'}
       // @ts-ignore
       placement={placement ? placement : 'right'}
@@ -72,8 +77,9 @@ const AppDrawer: FC<Props> = ({
           justifyContent={'space-between'}
           borderBottomWidth="1px"
         >
-          {title}
+          {title && title}
           <AppCloseButton onClose={onClose} />
+          {themeControl && <ToggleThemeButton />}
         </DrawerHeader>
 
         <DrawerBody p={noPadding ? 0 : undefined}>{children}</DrawerBody>

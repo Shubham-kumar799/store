@@ -1,10 +1,19 @@
 //comopnents
-import { Flex, Stack, Button, useColorModeValue } from '@chakra-ui/react';
+import {
+  Flex,
+  Stack,
+  Button,
+  useColorModeValue,
+  Show,
+  Hide,
+} from '@chakra-ui/react';
 import LogInAndSignUpButton from './LogInAndSignUpButton';
 import LogoutButton from './LogoutButton';
 import ToggleThemeButton from './ToggleThemeButton';
 import VerifyEmailButton from './VerifyEmailButton';
 import Image from 'next/image';
+import Responsive from './Responsive';
+import CartButton from './CartButton';
 
 //types
 import { FC } from 'react';
@@ -12,7 +21,6 @@ import { FC } from 'react';
 //utils
 import { useRouter } from 'next/router';
 import { useAppSelector, selectUser } from '@store';
-import CartButton from './CartButton';
 
 const Navbar: FC = () => {
   const user = useAppSelector(selectUser);
@@ -32,6 +40,7 @@ const Navbar: FC = () => {
       zIndex={100}
       bg={useColorModeValue('white', 'gray.800')}
       px={4}
+      pt={0}
       alignItems={'center'}
       justifyContent={'space-between'}
       p={2}
@@ -41,40 +50,44 @@ const Navbar: FC = () => {
           onClick={() => router.push('/')}
           style={{ cursor: 'pointer' }}
           src={'/images/logo.png'}
-          width="50"
-          height={'50'}
+          width="48"
+          height={'48'}
           objectFit="contain"
         />
       </Flex>
-
-      <Flex>
-        <Stack direction={'row'} spacing={8} alignItems={'center'}>
-          {user._id &&
-            user.role === 'admin' &&
-            !router.pathname.includes('/admin') && (
+      <Show above="md">
+        <Flex>
+          <Stack direction={'row'} spacing={8} alignItems={'center'}>
+            {user._id &&
+              user.role === 'admin' &&
+              !router.pathname.includes('/admin') && (
+                <Button
+                  rounded={'full'}
+                  onClick={() => router.push('/admin/orders')}
+                >
+                  To Admin Dashboard
+                </Button>
+              )}
+            {user._id && (
               <Button
-                rounded={'full'}
-                onClick={() => router.push('/admin/orders')}
+                variant={'outline'}
+                colorScheme={'brand.tertiary'}
+                onClick={() => router.push('/myOrders')}
               >
-                To Admin Dashboard
+                My Orders
               </Button>
             )}
-          {user._id && (
-            <Button
-              variant={'outline'}
-              colorScheme={'brand.tertiary'}
-              onClick={() => router.push('/myOrders')}
-            >
-              My Orders
-            </Button>
-          )}
-          {user._id && <CartButton />}
-          {user._id && !user.emailVerified && <VerifyEmailButton />}
+            {user._id && <CartButton />}
+            {user._id && !user.emailVerified && <VerifyEmailButton />}
 
-          <ToggleThemeButton />
-          {user._id ? <LogoutButton /> : <LogInAndSignUpButton />}
-        </Stack>
-      </Flex>
+            <ToggleThemeButton />
+            {user._id ? <LogoutButton /> : <LogInAndSignUpButton />}
+          </Stack>
+        </Flex>
+      </Show>
+      <Hide above="md">
+        <Responsive />
+      </Hide>
     </Flex>
   );
 };

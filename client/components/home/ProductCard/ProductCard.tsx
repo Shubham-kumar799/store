@@ -1,6 +1,5 @@
 import {
   Heading,
-  Image,
   Box,
   Center,
   Flex,
@@ -10,6 +9,7 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { CategoryBadge } from '@components/global';
+import Image from 'next/image';
 
 //icons
 import { BiRupee } from 'react-icons/bi';
@@ -34,27 +34,38 @@ const ProductCard: FC<Props> = ({ product }) => {
       }}
       transition="all .3s ease"
       cursor={'pointer'}
-      m={6}
-      maxW={'320px'}
-      w={'full'}
+      maxW={'500px'}
+      flex={1}
+      m={'4'}
       bg={useColorModeValue('white', 'gray.800')}
       rounded={'xl'}
-      p={0}
       alignItems="center"
       textAlign={'center'}
     >
-      <Box onClick={() => router.push(`/product/${product.slug}`)}>
+      <Box
+        rounded={'xl'}
+        onClick={() => router.push(`/product/${product.slug}`)}
+      >
         <Image
           alt="product-image"
           objectFit={'cover'}
-          borderTopRadius={'xl'}
-          h={250}
-          width={320}
-          maxH={250}
+          height={400}
+          width={400}
           src={product.images[0].url}
+          style={{
+            borderTopLeftRadius: '0.75rem',
+            borderTopRightRadius: '0.75rem',
+          }}
         />
 
-        <Heading isTruncated={true} m={4} fontSize={'2xl'} fontFamily={'body'}>
+        <Heading
+          alignSelf={'center'}
+          w={'xs'}
+          isTruncated={true}
+          m={4}
+          fontSize={'2xl'}
+          fontFamily={'body'}
+        >
           {product.name}
         </Heading>
 
@@ -62,6 +73,7 @@ const ProductCard: FC<Props> = ({ product }) => {
           h={'24'}
           justifyContent="center"
           overflow="hidden"
+          flexWrap={'wrap'}
           alignItems={'center'}
         >
           <Box>

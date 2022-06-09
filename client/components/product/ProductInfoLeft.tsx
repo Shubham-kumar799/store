@@ -1,13 +1,5 @@
 //components
-import {
-  Box,
-  Center,
-  Text,
-  Icon,
-  HStack,
-  VStack,
-  Wrap,
-} from '@chakra-ui/react';
+import { Box, Text, Icon, HStack, VStack, Wrap, Flex } from '@chakra-ui/react';
 import { CategoryBadge, ProductRating } from '@components/global';
 
 //icons
@@ -35,8 +27,14 @@ const ProductInfoLeft: FC<Props> = ({
   refetchProduct,
 }) => {
   return (
-    <VStack mt={10} p={4} spacing={'10'} alignItems="flex-start" flex={1}>
-      <HStack>
+    <VStack
+      mt={10}
+      p={4}
+      spacing={'10'}
+      alignItems={{ md: 'flex-start' }}
+      flex={1}
+    >
+      <HStack justifyContent={{ base: 'center', md: 'flex-start' }}>
         <Icon as={BiRupee} />
         <Text fontWeight="bold" fontSize="2xl" as={'i'}>
           {price}
@@ -51,13 +49,19 @@ const ProductInfoLeft: FC<Props> = ({
           rating={rating}
         />
       </Box>
-      <Wrap>
+      <Flex
+        w="full"
+        flexWrap={'wrap'}
+        p={2}
+        alignItems="center"
+        justifyContent={{ base: 'center', md: 'flex-start' }}
+      >
         {subCategories.map(s => (
           <CategoryBadge name={s.name} />
         ))}
-      </Wrap>
+      </Flex>
 
-      <CardFooter />
+      <CardFooter productId={productId} />
     </VStack>
   );
 };

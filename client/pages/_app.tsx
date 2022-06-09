@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
 
 //components
-import { Navbar, Footer } from '@components/global';
 import { AdminSidebar } from '@components/admin';
 
 //utils
@@ -22,12 +21,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ApolloProvider client={apolloClient}>
         <ChakraProvider theme={theme}>
           <SetUser>
-            <Navbar />
             <AdminSidebar>
               <Component {...pageProps} />
             </AdminSidebar>
           </SetUser>
-          <Footer />
         </ChakraProvider>
       </ApolloProvider>
     </ReduxProvider>

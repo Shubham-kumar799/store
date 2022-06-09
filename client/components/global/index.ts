@@ -15,3 +15,4 @@ export { default as ProductRating } from './ProductRating';
 export { default as DiscountSlip } from './DiscountSlip';
 export { default as AppLoading } from './AppLoading';
 export { default as RunLottieAnimation } from './RunLottieAnimation';
+export { default as BaseLayout } from './BaseLayout';
